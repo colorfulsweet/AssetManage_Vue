@@ -1,4 +1,4 @@
-# vue_demo
+# AssetManage
 
 > 资产管理系统使用vue重构
 
