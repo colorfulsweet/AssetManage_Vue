@@ -1,6 +1,6 @@
+<!-- 登陆页面 -->
 <template>
 <div>
-	<x-header :left-options="{showBack: false}">登陆</x-header>
 	<group>
 		<form action="" method="post">
 		<x-input type="text" v-model="username" title="用户名" placeholder="请输入" required :show-clear="true" placeholder-align="right" text-align="right"></x-input>
@@ -14,7 +14,7 @@
 </div>
 </template>
 <script>
-import { XHeader, XInput, Group, XButton, Cell } from 'vux'
+import { XInput, Group, XButton, Cell } from 'vux'
 export default {
 	name : "login",
 	data () {
@@ -24,10 +24,13 @@ export default {
 		};
 	},
 	components : {
-		XHeader, XInput, Group, XButton, Cell
+		XInput, Group, XButton, Cell
+	},
+	created () {
+		this.$store.commit("setHeaderConf", {hasbackbtn : false,title : "登录"});
 	},
 	methods : {
-		loginSubmit : function(){
+		loginSubmit () {
 			//TODO 验证用户名密码
 			var _this = this;
 			this.$vux.toast.show({
@@ -38,7 +41,7 @@ export default {
 					_this.$router.push("/index");
 				}
 			})
-			localStorage.setItem("login_user", {
+			this.$store.commit("login", {
 				username : this.username,
 				realname : "测试用户"
 			});

@@ -1,5 +1,5 @@
 {
-  "name": "vue_demo",
+  "name": "asset_manage",
   "version": "1.0.0",
   "description": "资产管理系统",
   "author": "结发受长生 <init_pro@aliyun.com>",
@@ -12,6 +12,7 @@
   "dependencies": {
     "vue": "^2.4.2",
     "vue-router": "^2.7.0",
+    "vuex": "^3.0.0",
     "vux": "^2.6.5"
   },
   "devDependencies": {

@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <x-header :left-options="{showBack: $store.state.headerConf.hasbackbtn}">
+      {{$store.state.headerConf.title}}
+    </x-header>
     <!--
     <div v-transfer-dom>
       <loading :show="isLoading" ></loading>
@@ -14,6 +17,7 @@
 <script>
 import Actionsheet from 'vux/src/components/actionsheet/index';
 import Loading from 'vux/src/components/loading/index';
+import XHeader from 'vux/src/components/x-header/index';
 //import { TransferDomDirective as TransferDom} from "vux";
 export default {
   name: 'app',
@@ -25,12 +29,8 @@ export default {
   },
   components : {
     Actionsheet,
-    Loading
-  },
-  methods : {
-    changeLocale : function(){
-      alert(1);
-    }
+    Loading,
+    XHeader
   },
   watch: {
     '$route' (to, from) {
@@ -42,6 +42,7 @@ export default {
 }
 </script>
 <style>
+@import "../static/fonts/font-awesome.min.css";
 * {
   margin : 0;
   padding : 0;
@@ -56,9 +57,10 @@ html,body{
   position: relative;
 }
 .main-view {
-  padding:3em 0;
+  padding-top:2.9em;
   position: absolute;
   width: 100%;
+  height : calc(100vh - 2.9em);
   transition: all .5s cubic-bezier(.55,0,.1,1);
 }
 .slide-left-enter, .slide-right-leave-active {

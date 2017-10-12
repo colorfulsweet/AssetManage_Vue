@@ -1,25 +1,22 @@
+<!-- 首页/我的 -->
 <template>
 <div>
-	<x-header>首页</x-header>
 	<group>
-		<template v-for="(item,index) in menus[selectIndex]">
+		<template v-for="(item,index) in menus[tabs.selectIndex]">
 		<cell-box is-link :link="item.url">{{item.name}}</cell-box>
 		</template>
     </group>
 	<tabbar>
-		<tabbar-item @on-item-click="onItemClick" selected>
-			<!-- <img slot="icon" src="../assets/demo/icon_nav_button.png"> -->
-			<span slot="label">首　页</span>
-		</tabbar-item>
-		<tabbar-item @on-item-click="onItemClick">
-			<!-- <img slot="icon" src="../assets/demo/icon_nav_button.png"> -->
-			<span slot="label">　我　</span>
-		</tabbar-item>
+        <template v-for="(item,index) in tabs.items">
+            <tabbar-item @on-item-click="onItemClick" v-bind:selected="index==0">
+                <span :class="'fa fa-'+item.icon" slot="label">{{item.name}}</span>
+            </tabbar-item>
+        </template>
 	</tabbar>
 </div>
 </template>
 <script>
-import { XHeader, Group , CellBox, Tabbar, TabbarItem } from 'vux'
+import { Group , CellBox, Tabbar, TabbarItem } from 'vux'
 export default {
 	name : "index",
 	data () {
@@ -61,15 +58,38 @@ export default {
             name : "当前资产",
             url : "my/my_assets.html",
         }]],
-        selectIndex : 0
+        tabs : {
+            selectIndex : 0,
+            items : [{
+                name : "首页",
+                icon : "home"
+            },{
+                name : "我的",
+                icon : "user"
+            }]
+        }
 		};
-	},
+    },
+    created () {
+        this.$store.commit("setHeaderConf", {hasbackbtn : true,title : "首页"});
+    },
+    watch : {
+        tabs : {
+            deep : true,
+            handler (newVal, oldVal) {
+                this.$store.commit("setHeaderConf", {
+                    hasbackbtn : true,
+                    title : this.tabs.items[newVal.selectIndex].name
+                });
+            }
+        }
+    },
 	components : {
-		XHeader, Group, CellBox, Tabbar, TabbarItem
+		Group, CellBox, Tabbar, TabbarItem
 	},
 	methods : {
 		onItemClick (index) {
-			this.selectIndex = index;
+            this.tabs.selectIndex = index;
 		}
 	}
 };
