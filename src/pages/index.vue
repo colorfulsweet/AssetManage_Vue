@@ -2,8 +2,8 @@
 <div>
 	<x-header>首页</x-header>
 	<group>
-		<template v-for="(item,index) in menus[tabs.selectIndex]">
-		<cell-box is-link>{{item.name}}</cell-box>
+		<template v-for="(item,index) in menus[selectIndex]">
+		<cell-box is-link :link="item.url">{{item.name}}</cell-box>
 		</template>
     </group>
 	<tabbar>
@@ -27,49 +27,41 @@ export default {
 		menus : [[{ //===首页===
             id : "zcck",
             name : "资产出库",
-            url : "zc/zcck.html",
-            callback : "openUrl",
+            url : "/search/1",
             roles : ["MA", "MK"]
         },{
             id : "zclz",
             name : "资产流转",
-            url : "zc/zclz.html",
-            callback : "openUrl",
+            url : "/search/2",
             roles : ["MK"]
         },{
             id : "zcpd",
             name : "资产盘点",
-            url : "zc/zcpd.html",
-            callback : "openUrl"
+            url : "/search/3"
         },{
             id : "zccl",
             name : "资产处理",
-            url : "zc/zcpd.html",
-            callback : "openUrl"
+            url : "/search/4",
+            roles : ["MK"]
         },{
             id : "qrcodeScan",
             name : "二维码扫描",
             callback : "qrcodeScan",
-            oles : ["MA","MK"]
+            roles : ["MA","MK"]
         }] , [{ //===我的===
             id : "my_info",
             name : "我的信息",
             //url : "my/my_info.html",
-            callback : "openUrl"
         },{
             id : "my_record",
             name : "我的记录",
             //url : "my/my_record.html",
-            callback : "openUrl"
         },{
             id : "my_assets",
             name : "当前资产",
             url : "my/my_assets.html",
-            callback : "openUrl"
         }]],
-        tabs : {
-            selectIndex : 0
-        }
+        selectIndex : 0
 		};
 	},
 	components : {
@@ -77,7 +69,7 @@ export default {
 	},
 	methods : {
 		onItemClick (index) {
-			this.tabs.selectIndex = index;
+			this.selectIndex = index;
 		}
 	}
 };
