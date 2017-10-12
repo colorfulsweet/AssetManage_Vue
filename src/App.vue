@@ -1,13 +1,9 @@
 <template>
   <div id="app">
+    <loading></loading>
     <x-header :left-options="{showBack: $store.state.headerConf.hasbackbtn}">
       {{$store.state.headerConf.title}}
     </x-header>
-    <!--
-    <div v-transfer-dom>
-      <loading :show="isLoading" ></loading>
-    </div>
-    -->
     <transition :name="transitionName">
       <router-view class="main-view"/>
     </transition>
@@ -16,9 +12,8 @@
 
 <script>
 import Actionsheet from 'vux/src/components/actionsheet/index';
-import Loading from 'vux/src/components/loading/index';
 import XHeader from 'vux/src/components/x-header/index';
-//import { TransferDomDirective as TransferDom} from "vux";
+import Loading from "./components/loading";
 export default {
   name: 'app',
   data () {
@@ -28,9 +23,7 @@ export default {
     };
   },
   components : {
-    Actionsheet,
-    Loading,
-    XHeader
+    Actionsheet, XHeader, Loading
   },
   watch: {
     '$route' (to, from) {
@@ -55,6 +48,7 @@ html,body{
 }
 #app {
   position: relative;
+  height:100%;
 }
 .main-view {
   padding-top:2.9em;

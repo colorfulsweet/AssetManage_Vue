@@ -31,22 +31,22 @@ const store = new Vuex.Store({
 	  /*
 	   * 修改header的信息
 	   * */
-	  setHeaderConf: (state, data) => {
-		Object.assign(state.headerConf, data)
+	  setHeaderConf: (state, headerConf) => {
+		Object.assign(state.headerConf, headerConf)
 	  },
 	  /*
 	   * 登陆
 	   * */
-	  login: (state,data) => {
-		localStorage.setItem('userId',data.uuid);//登陆用户ID
-		localStorage.setItem('userMsg',JSON.stringify(data));//登陆用户其他信息
-		state.comm.loginInfo.userId = data.uuid;
-		state.comm.loginInfo.userData = data;
+	  login: (state,userData) => {
+		localStorage.setItem('userId',userData.uuid);//登陆用户ID
+		localStorage.setItem('userMsg',JSON.stringify(userData));//登陆用户其他信息
+		state.comm.loginInfo.userId = userData.uuid;
+		state.comm.loginInfo.userData = userData;
 	  },
 	  /*
 	   * 注销
 	   * */
-	  logout: (state,data) => {
+	  logout: (state) => {
 		localStorage.removeItem('userId');
 		localStorage.removeItem('userMsg');
 		state.comm.loginInfo.userId = null;
