@@ -1,14 +1,14 @@
 <!-- 首页/我的 -->
 <template>
 <div>
-	<group>
+	<group gutter="0">
 		<template v-for="(item,index) in menus[tabs.selectIndex]">
-		<cell-box is-link :link="item.url">{{item.name}}</cell-box>
+		<cell-box is-link :link="item.url" v-bind:key="index">{{item.name}}</cell-box>
 		</template>
     </group>
 	<tabbar>
         <template v-for="(item,index) in tabs.items">
-            <tabbar-item @on-item-click="onItemClick" v-bind:selected="index==0">
+            <tabbar-item @on-item-click="onItemClick" v-bind:selected="index==0" v-bind:key="index">
                 <span :class="'fa fa-'+item.icon" slot="label">{{item.name}}</span>
             </tabbar-item>
         </template>
@@ -24,21 +24,21 @@ export default {
 		menus : [[{ //===首页===
             id : "zcck",
             name : "资产出库",
-            url : "/search/1",
+            url : "/search?operate=1",
             roles : ["MA", "MK"]
         },{
             id : "zclz",
             name : "资产流转",
-            url : "/search/2",
+            url : "/search?operate=2",
             roles : ["MK"]
         },{
             id : "zcpd",
             name : "资产盘点",
-            url : "/search/3"
+            url : "/search?operate=3"
         },{
             id : "zccl",
             name : "资产处理",
-            url : "/search/4",
+            url : "/search?operate=4",
             roles : ["MK"]
         },{
             id : "qrcodeScan",

@@ -1,13 +1,13 @@
 <!-- 登陆页面 -->
 <template>
 <div>
-	<group>
+	<group gutter="0">
 		<form action="" method="post">
 		<x-input type="text" v-model="username" title="用户名" placeholder="请输入" required :show-clear="true" placeholder-align="right" text-align="right"></x-input>
 		<x-input type="password" v-model="password" title="密码" placeholder="请输入" required :show-clear="true" placeholder-align="right" text-align="right"></x-input>
 		</form>
 	</group>
-	<div style="padding:15px;">
+	<div class="btn-container">
 		<x-button @click.native="loginSubmit" type="primary">登陆</x-button>
 		<div>测试用户 : MA1 MK1 MK2 , 密码都是123</div>
 	</div>

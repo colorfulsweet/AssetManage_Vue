@@ -3,13 +3,28 @@ import Router from 'vue-router'
 import Login from  "@/pages/login"
 import Index from  "@/pages/index"
 import Search from "@/pages/search"
+import Result from "@/pages/zc/result"
+
+import store from "../store/store"
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {path: '/',component: Login},
     {path: "/index",component: Index},
-    {path: "/search/:operate",component: Search}
+    {path: "/search",component: Search},
+    {path: "/search/result",component: Result}
   ]
+});
+
+router.beforeEach(function (to, from, next) {
+  store.commit('setLoading', true)
+  next()
 })
+
+router.afterEach(function (to) {
+  store.commit('setLoading', false)
+})
+
+export default router

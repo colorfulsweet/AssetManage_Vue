@@ -27,7 +27,7 @@ export default {
 		};
 	},
 	created : function(){
-		this.operate = this.$route.params.operate;
+		this.operate = this.$route.query.operate;
 		this.$store.commit("setHeaderConf", 
 			{
 				hasbackbtn : true,
@@ -39,7 +39,11 @@ export default {
 	},
 	methods : {
 		search() {
-			//TODO 
+			//TODO 这里传参存在问题 &符号会被自动转义
+			this.$router.push(`/search/result?
+			zcID=${this.zcID?this.zcID:''}&
+			name=${this.name?this.name:''}&
+			type=${this.type?this.type:''}`);
 		}
 	}
 };

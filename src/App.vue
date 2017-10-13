@@ -78,4 +78,7 @@ html,body{
 .weui-tabbar {
   bottom: 0;
 }
+.btn-container {
+  padding: 1em;
+}
 </style>
