@@ -6,7 +6,7 @@
 		<selector placeholder="请选择" v-model="name" title="名称" name="name" :options="names" ></selector>
 		<selector placeholder="请选择" v-model="type" title="类型" name="type" :options="types" ></selector>
 	</group>
-	<div style="padding:15px;">
+	<div class="btn-container">
 		<x-button @click.native="search" type="primary">搜索</x-button>
 	</div>
 </div>

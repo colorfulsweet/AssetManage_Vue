@@ -109,7 +109,7 @@ export default {
 			});
 			return;
 		}
-		//TODO 跳转清单页面
+		this.$router.push("/zc/list");
 	}
   }
 }
