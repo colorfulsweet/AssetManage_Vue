@@ -31,10 +31,18 @@ export default {
 	},
 	methods : {
 		loginSubmit () {
+			if (!this.username) {
+				this.$vux.toast.text('用户名不能为空', 'middle');
+                return;
+            } 
+            if (!this.password) {
+				this.$vux.toast.text('密码不能为空', 'middle');
+                return;
+            } 
 			//TODO 验证用户名密码
 			var _this = this;
 			this.$vux.toast.show({
-				text : `${this.username},${this.password}`,
+				text : "登陆成功",
 				type : "text",
 				position : "middle",
 				onHide () {

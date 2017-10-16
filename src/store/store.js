@@ -5,20 +5,20 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
 	state: {
 	  	// 公共变量
-			comm: {
-				loading: false,
-				loginInfo: {
-					userId: null,
-					userData: null
-				},
-				apiUrl: 'http://127.0.0.1:8080/',
-				fileUrl: 'http://127.0.0.1:8080/filebase/',
-				operateList : ["出库", "流转", "盘点", "回收"]
+		comm: {
+			loading: false,
+			loginInfo: {
+				userId: null,
+				userData: null
 			},
-			// 页头配置
-			headerConf : {
-			hasbackbtn : false,
-			title : null
+			apiUrl: 'http://127.0.0.1:8080/',
+			fileUrl: 'http://127.0.0.1:8080/filebase/',
+			operateList : ["出库", "流转", "盘点", "回收"]
+		},
+		// 页头配置
+		headerConf : {
+		hasbackbtn : false,
+		title : null
 	  },
 	},
 	mutations: {

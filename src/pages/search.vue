@@ -14,7 +14,7 @@
 <script>
 import { XInput, Group, XButton, Selector } from 'vux'
 export default {
-	name : "index",
+	name : "search",
 	data () {
 		return {
 			operate : 1,
@@ -28,6 +28,7 @@ export default {
 	},
 	created : function(){
 		this.operate = this.$route.query.operate;
+		localStorage.setItem("operate", this.operate);
 		this.$store.commit("setHeaderConf", 
 			{
 				hasbackbtn : true,
@@ -39,6 +40,10 @@ export default {
 	},
 	methods : {
 		search() {
+			if(!this.zcID && !this.name && !this.type) {
+				this.$vux.toast.text('请输入查询条件', 'middle');
+				return;
+			}
 			//TODO 这里传参存在问题 &符号会被自动转义
 			this.$router.push(`/search/result?
 			zcID=${this.zcID?this.zcID:''}&
