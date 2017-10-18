@@ -11,8 +11,8 @@ const store = new Vuex.Store({
 				userId: null,
 				userData: null
 			},
-			apiUrl: 'http://127.0.0.1:8080/',
-			fileUrl: 'http://127.0.0.1:8080/filebase/',
+			apiUrl: 'http://192.168.31.137:9000/',
+			fileUrl: 'http://192.168.31.137:9000/filebase/',
 			operateList : ["出库", "流转", "盘点", "回收"]
 		},
 		// 页头配置

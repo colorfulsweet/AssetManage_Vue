@@ -1,1 +1,14 @@
-null
+{
+	"dist/index.html": {
+		"resources": [
+			"dist/app.53c1f0d88fba92148615ada61ba11171.css",
+			"dist/static/js/vendor.c6c82277cb771f729bd9.js",
+			"dist/static/js/manifest.f3b857ed75a565fdf4ee.js",
+			"dist/static/js/app.da182b57dc886ef48e2b.js",
+			"dist/static/js/manifest.9c7fb1df0125dcfb0a90.js",
+			"dist/static/js/app.7a7c6047b6496bb0c2c7.js",
+			"dist/static/js/manifest.224b457d43f8473c51a1.js",
+			"dist/static/js/app.6e55baba70e8772685ed.js"
+		]
+	}
+}

@@ -12,6 +12,14 @@ Vue.use(ToastPlugin); //Toast提示插件
 Vue.use(AjaxPlugin); //发送ajax请求插件
 Vue.use(AlertPlugin); //提示框
 
+Vue.http.interceptors.request.use(function (config) {
+  // 请求发送前的处理逻辑
+  return config;
+}, function (error) {
+  // Do something with request error 
+  return Promise.reject(error);
+});
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

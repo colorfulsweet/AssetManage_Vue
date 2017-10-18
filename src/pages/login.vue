@@ -15,6 +15,8 @@
 </template>
 <script>
 import { XInput, Group, XButton, Cell } from 'vux'
+import qs from "qs"
+
 export default {
 	name : "login",
 	data () {
@@ -41,17 +43,24 @@ export default {
             } 
 			//TODO 验证用户名密码
 			var _this = this;
-			this.$vux.toast.show({
-				text : "登陆成功",
-				type : "text",
-				position : "middle",
-				onHide () {
-					_this.$router.push("/index");
+			this.$http.post(this.$store.state.comm.apiUrl + "login", 
+			qs.stringify({
+				user : this.username,
+				password : this.password
+			})).then(function(response){
+				if(!response.data.status) {
+					_this.$vux.toast.text(response.data.msg, "middle");
+				} else {
+					_this.$store.commit("login", response.data.data);
+					_this.$vux.toast.show({
+						text : "登陆成功",
+						type : "text",
+						position : "middle",
+						onHide () {
+							_this.$router.push("/index");
+						}
+					});
 				}
-			})
-			this.$store.commit("login", {
-				username : this.username,
-				realname : "测试用户"
 			});
 		}
 	}
