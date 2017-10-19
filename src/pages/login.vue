@@ -21,7 +21,7 @@ export default {
 	name : "login",
 	data () {
 		return {
-			username : null,
+			username : localStorage.getItem("re_username"),
 			password : null
 		};
 	},
@@ -41,22 +41,20 @@ export default {
 				this.$vux.toast.text('密码不能为空', 'middle');
                 return;
             } 
-			//TODO 验证用户名密码
 			var _this = this;
-			this.$http.post(this.$store.state.comm.apiUrl + "login", 
-			qs.stringify({
-				user : this.username,
-				password : this.password
-			})).then(function(response){
+			this.$http.post(this.$store.state.apiUrl + "login", 
+				{user : this.username,password : this.password})
+			.then(function(response){
 				if(!response.data.status) {
 					_this.$vux.toast.text(response.data.msg, "middle");
 				} else {
-					_this.$store.commit("login", response.data.data);
+					localStorage.setItem("re_username", _this.username);
 					_this.$vux.toast.show({
 						text : "登陆成功",
 						type : "text",
 						position : "middle",
 						onHide () {
+							_this.$store.commit("login", response.data.data);
 							_this.$router.push("/index");
 						}
 					});

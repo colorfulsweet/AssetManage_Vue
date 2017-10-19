@@ -1,9 +1,10 @@
 <template>
   <div id="app">
-    <loading></loading>
+    <loading ></loading>
     <x-header :left-options="{showBack: $store.state.headerConf.hasbackbtn}">
       {{$store.state.headerConf.title}}
     </x-header>
+    <user-info :realname="$store.state.loginInfo.userData ? $store.state.loginInfo.userData.realname : null"></user-info>
     <transition :name="transitionName">
       <router-view class="main-view"/>
     </transition>
@@ -14,6 +15,8 @@
 import Actionsheet from 'vux/src/components/actionsheet/index';
 import XHeader from 'vux/src/components/x-header/index';
 import Loading from "./components/loading";
+import UserInfo from "./components/user_info";
+
 export default {
   name: 'app',
   data () {
@@ -23,7 +26,7 @@ export default {
     };
   },
   components : {
-    Actionsheet, XHeader, Loading
+    Actionsheet, XHeader, Loading, UserInfo
   },
   watch: {
     '$route' (to, from) {

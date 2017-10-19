@@ -7,6 +7,7 @@
 			<th>编码</th>
 			<th>名称</th>
 			<th>类别</th>
+			<th>数量</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -14,7 +15,8 @@
 			v-bind:class="{selected : item.isSelected}">
 			<td>{{item.zcid}}</td>
 			<td>{{item.mingch}}</td>
-			<td>{{item.leib}}</td>
+			<td>{{item.lbie}}</td>
+			<td>{{item.shul}}</td>
 		</tr>
 	</tbody>
 </x-table>
@@ -27,11 +29,12 @@
 
 <script>
 import { XTable,XButton } from 'vux'
+import qs from "qs"
+
 export default {
   name : "result",
   data () {
 	  return {
-		  columns : ["编码", "名称", "类别"],
 		  zcList : []
 	  };
   },
@@ -41,19 +44,14 @@ export default {
 			hasbackbtn : true,
 			title : "查询结果"
 		});
-	//TODO ajax
-	//this.$route.query中包含查询参数
-	this.zcList = [{
-		uuid:"ab1",
-		zcid:"1001",
-		mingch:"资产1",
-		leib:"11"
-	},{
-		uuid:"ab2",
-		zcid:"1002",
-		mingch:"资产2",
-		leib:"22"
-	}];
+	var _this = this;
+	this.$http.get(this.$store.state.apiUrl + "zichan/list",{params:{
+		zcID : this.$route.query.zcID,
+		mingch : this.$route.query.name,
+		lbie : this.$route.query.type
+	}}).then(function(response){
+		_this.zcList = response.data;
+	});
   },
   components : { XTable,XButton },
   methods : {

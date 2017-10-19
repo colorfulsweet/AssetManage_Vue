@@ -6,17 +6,21 @@
 		<cell-box is-link :link="item.url" v-bind:key="index">{{item.name}}</cell-box>
 		</template>
     </group>
+    <div class="btn-container" v-show="tabs.selectIndex == 1">
+		<x-button @click.native="logout" type="warn">退出登录</x-button>
+	</div>
 	<tabbar>
         <template v-for="(item,index) in tabs.items">
             <tabbar-item @on-item-click="onItemClick" v-bind:selected="index==0" v-bind:key="index">
-                <span :class="'fa fa-'+item.icon" slot="label">{{item.name}}</span>
+                <i :class="'fa fa-'+item.icon" slot="label"></i>
+                <span class="fa" slot="label">{{item.name}}</span>
             </tabbar-item>
         </template>
 	</tabbar>
 </div>
 </template>
 <script>
-import { Group , CellBox, Tabbar, TabbarItem } from 'vux'
+import { Group , CellBox, Tabbar, TabbarItem, XButton } from 'vux'
 export default {
 	name : "index",
 	data () {
@@ -57,6 +61,10 @@ export default {
             id : "my_assets",
             name : "当前资产",
             url : "my/my_assets.html",
+        },{
+            id : "change_pwd",
+            name : "修改密码",
+            url : "my/change_pwd.html",
         }]],
         tabs : {
             selectIndex : 0,
@@ -71,7 +79,7 @@ export default {
 		};
     },
     created () {
-        this.$store.commit("setHeaderConf", {hasbackbtn : true,title : "首页"});
+        this.$store.commit("setHeaderConf", {hasbackbtn : false,title : "首页"});
     },
     watch : {
         tabs : {
@@ -85,12 +93,35 @@ export default {
         }
     },
 	components : {
-		Group, CellBox, Tabbar, TabbarItem
+		Group, CellBox, Tabbar, TabbarItem, XButton
 	},
 	methods : {
+        /**
+         * tab页签点击事件
+         */
 		onItemClick (index) {
             this.tabs.selectIndex = index;
-		}
+        },
+        /**
+         * 注销
+         */
+        logout () {
+            var _this = this;
+            this.$vux.toast.show({
+                text : "退出登录成功",
+                type : "text",
+                position : "middle",
+                onHide () {
+                    _this.$store.commit("logout");
+                    _this.$router.push("/");
+                }
+            });
+        }
 	}
 };
 </script>
+<style>
+.fa {
+    font-size: 1.2em;
+}
+</style>

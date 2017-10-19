@@ -11,10 +11,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(item,index) in zcList" :key="item.zcid" v-bind:class="{selected : item.isSelected}">
+      <tr v-for="(item,index) in zcList" :key="item.uuid" v-bind:class="{selected : item.isSelected}">
+        <td>{{index+1}}</td>
         <td>{{item.zcid}}</td>
         <td>{{item.mingch}}</td>
-        <td>{{item.leib}}</td>
         <td>{{item.shul}}</td>
         <td>{{item.danwei}}</td>
       </tr>
@@ -42,27 +42,14 @@ export default {
     this.$store.commit("setHeaderConf", 
 		{
 			hasbackbtn : true,
-			title : `${this.$store.state.comm.operateList[this.operate-1]}清单`
+			title : `${this.$store.state.operateList[this.operate-1]}清单`
 		});
-    //TODO ajax
-    // ----TEST----
-    this.zcList = [{
-      uuid:"ab1",
-      zcid:"1001",
-      mingch:"资产1",
-      leib:"11",
-      shul:1,
-      danwei:"个"
-    },{
-      uuid:"ab2",
-      zcid:"1002",
-      mingch:"资产2",
-      leib:"22",
-      shul:1,
-      danwei:"个"
-    }];
-    // ------------
-
+    var _this = this;
+    this.$http.get(this.$store.state.apiUrl+"zichan/list",
+      {params:{uuids:JSON.parse(selectIds).join(",")}})
+      .then(function(response){
+        _this.zcList = response.data;
+      });
   },
   components : { XTable,XButton },
   methods : {

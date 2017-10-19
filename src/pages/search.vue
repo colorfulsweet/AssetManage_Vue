@@ -32,7 +32,7 @@ export default {
 		this.$store.commit("setHeaderConf", 
 			{
 				hasbackbtn : true,
-				title : `${this.$store.state.comm.operateList[this.operate-1]}流程`
+				title : `${this.$store.state.operateList[this.operate-1]}流程`
 			});
 	},
 	components : {
@@ -44,11 +44,10 @@ export default {
 				this.$vux.toast.text('请输入查询条件', 'middle');
 				return;
 			}
-			//TODO 这里传参存在问题 &符号会被自动转义
-			this.$router.push(`/search/result?
-			zcID=${this.zcID?this.zcID:''}&
-			name=${this.name?this.name:''}&
-			type=${this.type?this.type:''}`);
+			this.$router.push(`/search/result?` +
+				`zcID=${this.zcID?this.zcID:''}&` +
+				`name=${this.name?this.name:''}&` +
+				`type=${this.type?this.type:''}`);
 		}
 	}
 };

@@ -1,5 +1,5 @@
 <template>
-<div id='loading-container' v-show="$store.state.comm.loading">
+<div id='loading-container' v-show="$store.state.loading">
 	<div class='loader' :data-text='text' data-half ></div>
 </div>
 </template>
