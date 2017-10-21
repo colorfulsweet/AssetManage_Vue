@@ -6,13 +6,13 @@
 
 <script>
 export default {
-  name : "loading",
-  props : {
-	text : {
-		type : String,
-		default : "正在加载..."
+	name : "loading",
+	props : {
+		text : {
+			type : String,
+			default : "正在加载..."
+		}
 	}
-  }
 }
 </script>
 

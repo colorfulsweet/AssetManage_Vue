@@ -11,7 +11,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr v-for="(item,index) in zcList" :key="item.zcid" v-on:click="trSelect(index)"
+		<tr v-for="(item,index) in zcList" :key="item.zcid" v-on:click="trClick(index)"
 			v-bind:class="{selected : item.isSelected}">
 			<td>{{item.zcid}}</td>
 			<td>{{item.mingch}}</td>
@@ -24,96 +24,141 @@
 	<x-button @click.native="addToList" type="primary">添加到清单</x-button>
 	<x-button @click.native="showList" type="default">查看清单</x-button>
 </div>
+<x-dialog hide-on-blur :show.sync="showDialog" class="detail-dialog">
+	<div class="detail-panel">
+		<group>
+			<cell title="资产名称" primary="content" :value="selectIndex?zcList[selectIndex].mingch:null"></cell>
+			<cell-form-preview :list="datailList"></cell-form-preview>
+		</group>
+	</div>
+	<div class="btn-container">
+		<x-button @click.native="selectZc" :type="selectIndex===null||!zcList[selectIndex].isSelected?'primary':'warn'">
+			{{selectIndex===null||!zcList[selectIndex].isSelected?'选中':'取消选中'}}
+		</x-button>
+	</div>
+</x-dialog>
 </div>
 </template>
 
 <script>
-import { XTable,XButton } from 'vux'
+import { XTable,XButton,XDialog,CellFormPreview, Group, Cell,TransferDomDirective as TransferDom } from 'vux'
 import qs from "qs"
+//详情dialog当中包含的字段
+var datailColumns = {ggxh:"规格",shul:"数量",ppcj:"厂家",gysDcxm:"供应商"};
 
 export default {
-  name : "result",
-  data () {
-	  return {
-		  zcList : []
-	  };
-  },
-  created () {
-	this.$store.commit("setHeaderConf", 
-		{
-			hasbackbtn : true,
-			title : "查询结果"
-		});
-	var _this = this;
-	this.$http.get(this.$store.state.apiUrl + "zichan/list",{params:{
-		zcID : this.$route.query.zcID,
-		mingch : this.$route.query.name,
-		lbie : this.$route.query.type
-	}}).then(function(response){
-		_this.zcList = response.data;
-	});
-  },
-  components : { XTable,XButton },
-  methods : {
-	/**
-	 * 数据表格行点击事件函数
-	 * @argument index 数据行的索引(从0开始)
-	 */
-	trSelect (index) {
-		this.zcList.splice(index, 1, 
-			Object.assign(this.zcList[index], {isSelected:!this.zcList[index].isSelected})
-		);
+	name : "result",
+	data () {
+		return {
+			zcList : [],
+			datailList :[],
+			selectIndex : null, //选中行的索引
+			showDialog : false,
+			columns : null
+		};
 	},
-	/**
-	 * "添加到清单"按钮点击事件函数
-	 * 将选中的数据添加到清单
-	 */
-	addToList () {
-		var selectedIds = this.zcList.filter(function(item){
-			return item.isSelected;
-		}).map(function(item){
-			return item.uuid;
+	created () {
+		this.$store.commit("setHeaderConf", 
+			{
+				hasbackbtn : true,
+				title : "查询结果"
+			});
+		var _this = this;
+		//查询资产数据
+		this.$http.get(this.$store.state.apiUrl + "zichan/list",{params:{
+			zcID : this.$route.query.zcID,
+			mingch : this.$route.query.name,
+			lbie : this.$route.query.type
+		}}).then(function(response){
+			_this.zcList = response.data;
 		});
-		if(selectedIds.length == 0) {
-			this.$vux.toast.text('请选择加入到清单的资产', 'middle')
-			return;
-		}
-		//由于可以多次添加, 需要获取到上次添加的列表
-		var oldList = localStorage.getItem("selectedIds");
-		if(!oldList) {
-			//第一次添加
-			localStorage.setItem("selectedIds", JSON.stringify(selectedIds));
-		} else {
-			//不是第一次添加
-			let currentList = JSON.parse(oldList);
-			for(let index in selectedIds) {
-				if(currentList.findIndex(function(item){return item===selectedIds[index]}) == -1) {
-					//现有列表中没有该ID
-					currentList.push(selectedIds[index]);
+	},
+	directives: { TransferDom },
+	components : { XTable,XButton,XDialog,CellFormPreview,Group,Cell },
+	methods : {
+		/**
+		* 数据表格行点击事件函数
+		* @argument index 数据行的索引(从0开始)
+		*/
+		trClick (index) {
+			this.showDialog = true;
+			this.selectIndex = index;
+			var datailList = [];
+			for(let name in this.zcList[index]) {
+				if(name in datailColumns) {
+					datailList.push({
+						label : datailColumns[name],
+						value : this.zcList[index][name]
+					});
 				}
 			}
-			localStorage.setItem("selectedIds", JSON.stringify(currentList));
-		}
-		this.$vux.toast.text('添加成功', 'middle')
-	},
-	/**
-	 * "查看清单"按钮点击事件函数
-	 */
-	showList () {
-		if(!localStorage.getItem("selectedIds")) {
-			this.$vux.alert.show({
-				title: '提示',
-				content: '清单中没有任何数据'
+			this.datailList = datailList;
+		},
+		/**
+		* 选中/取消选中当前选择的资产数据
+		*/
+		selectZc () {
+			this.zcList.splice(this.selectIndex, 1, 
+				Object.assign(this.zcList[this.selectIndex], {isSelected:!this.zcList[this.selectIndex].isSelected})
+			);
+			this.showDialog = false;
+		},
+		/**
+		* "添加到清单"按钮点击事件函数
+		* 将选中的数据添加到清单
+		*/
+		addToList () {
+			var selectedIds = this.zcList.filter(function(item){
+				return item.isSelected;
+			}).map(function(item){
+				return item.uuid;
 			});
-			return;
+			if(selectedIds.length == 0) {
+				this.$vux.toast.text('请选择加入到清单的资产', 'middle')
+				return;
+			}
+			//由于可以多次添加, 需要获取到上次添加的列表
+			var oldList = localStorage.getItem("selectedIds");
+			if(!oldList) {
+				//第一次添加
+				localStorage.setItem("selectedIds", JSON.stringify(selectedIds));
+			} else {
+				//不是第一次添加
+				let currentList = JSON.parse(oldList);
+				for(let index in selectedIds) {
+					if(currentList.findIndex(function(item){return item===selectedIds[index]}) == -1) {
+						//现有列表中没有该ID
+						currentList.push(selectedIds[index]);
+					}
+				}
+				localStorage.setItem("selectedIds", JSON.stringify(currentList));
+			}
+			this.$vux.toast.text('添加成功', 'middle')
+		},
+		/**
+		* "查看清单"按钮点击事件函数
+		*/
+		showList () {
+			if(!localStorage.getItem("selectedIds")) {
+				this.$vux.alert.show({
+					title: '提示',
+					content: '清单中没有任何数据'
+				});
+				return;
+			}
+			this.$router.push("/zc/list");
 		}
-		this.$router.push("/zc/list");
 	}
-  }
 }
 </script>
-<style scope>
+<style lang="less" scope>
 tr.selected {
 	background-color: rgb(238,248,172);
+}
+.detail-dialog {
+	.detail-panel {
+		max-height: calc(70vh);
+		overflow:scroll;
+	}
 }
 </style>

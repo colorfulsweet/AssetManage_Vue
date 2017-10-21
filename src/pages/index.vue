@@ -86,7 +86,7 @@ export default {
             deep : true,
             handler (newVal, oldVal) {
                 this.$store.commit("setHeaderConf", {
-                    hasbackbtn : true,
+                    hasbackbtn : false,
                     title : this.tabs.items[newVal.selectIndex].name
                 });
             }
