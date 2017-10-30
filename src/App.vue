@@ -12,8 +12,7 @@
 </template>
 
 <script>
-import Actionsheet from 'vux/src/components/actionsheet/index';
-import XHeader from 'vux/src/components/x-header/index';
+import { Actionsheet,XHeader } from 'vux'
 import Loading from "./components/loading";
 import UserInfo from "./components/user_info";
 

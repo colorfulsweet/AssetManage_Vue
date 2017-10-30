@@ -15,6 +15,7 @@ Vue.use(AlertPlugin); //提示框
 
 Vue.http.interceptors.request.use(function (config) {
   // 请求发送前的处理逻辑
+  vm.$store.commit("setLoading", true);
   var _token = vm.$store.state.loginInfo.token;
   //将_token添加到请求参数
   switch(config.method) {
@@ -39,6 +40,12 @@ Vue.http.interceptors.request.use(function (config) {
 }, function (error) {
   // Do something with request error 
   return Promise.reject(error);
+});
+
+Vue.http.interceptors.response.use(function(response){
+  // 请求完成之后的处理逻辑
+  vm.$store.commit("setLoading", false);
+  return response;
 });
 
 /* eslint-disable no-new */

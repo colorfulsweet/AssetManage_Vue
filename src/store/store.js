@@ -12,7 +12,7 @@ const store = new Vuex.Store({
 		},
 		apiUrl: 'http://192.168.31.137:9000/',
 		fileUrl: 'http://192.168.31.137:9000/filebase/',
-		operateList : ["出库", "流转", "盘点", "回收"],
+		operateList : ["出库", "流转", "回收"],
 		// 页头配置
 		headerConf : {
 			hasbackbtn : false,

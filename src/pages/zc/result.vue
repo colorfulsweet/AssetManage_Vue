@@ -11,7 +11,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr v-for="(item,index) in zcList" :key="item.zcid" v-on:click="trClick(index)"
+		<tr v-for="(item,index) in zcList" :key="item.uuid" v-on:click="trClick(index)"
 			v-bind:class="{selected : item.isSelected}">
 			<td>{{item.zcid}}</td>
 			<td>{{item.mingch}}</td>
@@ -42,7 +42,6 @@
 
 <script>
 import { XTable,XButton,XDialog,CellFormPreview, Group, Cell,TransferDomDirective as TransferDom } from 'vux'
-import qs from "qs"
 //详情dialog当中包含的字段
 var datailColumns = {ggxh:"规格",shul:"数量",ppcj:"厂家",gysDcxm:"供应商"};
 
@@ -53,8 +52,7 @@ export default {
 			zcList : [],
 			datailList :[],
 			selectIndex : null, //选中行的索引
-			showDialog : false,
-			columns : null
+			showDialog : false
 		};
 	},
 	created () {
@@ -69,7 +67,7 @@ export default {
 			zcID : this.$route.query.zcID,
 			mingch : this.$route.query.name,
 			lbie : this.$route.query.type
-		}}).then(function(response){
+		}}).then((response) => {
 			_this.zcList = response.data;
 		});
 	},
@@ -81,8 +79,8 @@ export default {
 		* @argument index 数据行的索引(从0开始)
 		*/
 		trClick (index) {
-			this.showDialog = true;
 			this.selectIndex = index;
+			this.showDialog = true;
 			var datailList = [];
 			for(let name in this.zcList[index]) {
 				if(name in datailColumns) {
@@ -139,7 +137,8 @@ export default {
 		* "查看清单"按钮点击事件函数
 		*/
 		showList () {
-			if(!localStorage.getItem("selectedIds")) {
+			var selectedIds = localStorage.getItem("selectedIds");
+			if(!selectedIds || !JSON.parse(selectedIds).length) {
 				this.$vux.alert.show({
 					title: '提示',
 					content: '清单中没有任何数据'
