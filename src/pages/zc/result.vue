@@ -24,11 +24,15 @@
 	<x-button @click.native="addToList" type="primary">添加到清单</x-button>
 	<x-button @click.native="showList" type="default">查看清单</x-button>
 </div>
+<!-- 详细信息dialog -->
 <x-dialog hide-on-blur :show.sync="showDialog" class="detail-dialog">
 	<div class="detail-panel">
 		<group>
 			<cell title="资产名称" primary="content" :value="selectIndex?zcList[selectIndex].mingch:null"></cell>
 			<cell-form-preview :list="datailList"></cell-form-preview>
+			<cell title="相关照片" >
+				<img v-for="imgPath in imageList" style="width:7em;height:7em" :src="$store.state.readPhotoUrl+imgPath"/>
+			</cell>
 		</group>
 	</div>
 	<div class="btn-container">
@@ -52,11 +56,12 @@ export default {
 			zcList : [],
 			datailList :[],
 			selectIndex : null, //选中行的索引
-			showDialog : false
+			showDialog : false,
+			imageList : []
 		};
 	},
 	created () {
-		this.$store.commit("setHeaderConf", 
+		this.$store.commit("setHeaderConf",
 			{
 				hasbackbtn : true,
 				title : "查询结果"
@@ -91,12 +96,18 @@ export default {
 				}
 			}
 			this.datailList = datailList;
+			var _this = this;
+			//获取资产流转的最后一张照片
+			this.$http.post(this.$store.state.apiUrl + "zichan/findLastPhoto", {zcid : this.zcList[index].zcid})
+			.then(function(response){
+				_this.imageList = response.data;
+			});
 		},
 		/**
 		* 选中/取消选中当前选择的资产数据
 		*/
 		selectZc () {
-			this.zcList.splice(this.selectIndex, 1, 
+			this.zcList.splice(this.selectIndex, 1,
 				Object.assign(this.zcList[this.selectIndex], {isSelected:!this.zcList[this.selectIndex].isSelected})
 			);
 			this.showDialog = false;

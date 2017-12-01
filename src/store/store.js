@@ -2,6 +2,10 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex);
+
+const port = 9000;
+const host = "127.0.0.1";
+const apiUrl = `http://${host}:${port}/`;
 const store = new Vuex.Store({
 	state: {
 	  	// 公共变量
@@ -10,8 +14,8 @@ const store = new Vuex.Store({
 			userData: null,
 			token: null
 		},
-		apiUrl: 'http://192.168.31.137:9000/',
-		fileUrl: 'http://192.168.31.137:9000/filebase/',
+		apiUrl: apiUrl,
+		readPhotoUrl: apiUrl + "lz/readPhoto?photoPath=",
 		operateList : ["出库", "流转", "回收"],
 		// 页头配置
 		headerConf : {

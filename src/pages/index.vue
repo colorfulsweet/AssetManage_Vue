@@ -2,7 +2,7 @@
 <template>
 <div>
 	<group gutter="0">
-		<template v-for="(item,index) in menus[tabs.selectIndex]" 
+		<template v-for="(item,index) in menus[tabs.selectIndex]"
             v-if="!$store.state.loginInfo.userData || !item.roles || existsSameValues(item.roles, $store.state.loginInfo.userData.roles)">
 		<cell-box is-link :link="item.url" v-bind:key="index">{{item.name}}</cell-box>
 		</template>
@@ -53,7 +53,7 @@ export default {
         }] , [{ //===我的===
             id : "my_info",
             name : "我的信息",
-            //url : "my/my_info.html",
+            url : "my/my_info",
         },{
             id : "my_record",
             name : "我的记录",
@@ -119,7 +119,7 @@ export default {
             });
         },
         /**
-         * 判断两个数组是否包含重复的元素 
+         * 判断两个数组是否包含重复的元素
          */
         existsSameValues (arr1, arr2) {
             if(!Array.isArray(arr1) || !Array.isArray(arr2)) {

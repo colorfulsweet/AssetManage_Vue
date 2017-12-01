@@ -9,6 +9,7 @@ import Inventory from "@/pages/zc/inventory"
 
 import MyAsset from "@/pages/my/my_asset"
 import MyRecord from "@/pages/my/my_record"
+import MyInfo from "@/pages/my/my_info"
 
 import store from "../store/store"
 
@@ -23,16 +24,19 @@ const router = new Router({
     {path: "/zc/list",component: List},
     {path: "/zc/inventory",component: Inventory},
     {path: "/my/my_asset",component: MyAsset},
-    {path: "/my/my_record",component: MyRecord}
+    {path: "/my/my_record",component: MyRecord},
+    {path: "/my/my_info",component: MyInfo}
   ]
 });
-
+//全局路由导航前置守卫
 router.beforeEach(function (to, from, next) {
+  //显示加载提示框
   store.commit('setLoading', true)
   next()
 })
-
+//全局路由导航后置守卫
 router.afterEach(function (to) {
+  //隐藏加载提示框
   store.commit('setLoading', false)
 })
 
