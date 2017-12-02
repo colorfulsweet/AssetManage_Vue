@@ -7,7 +7,7 @@
 			<th>资产名称</th>
 			<th>数量</th>
 			<th>交接方</th>
-            <th>时间</th>
+			<th>时间</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -15,7 +15,7 @@
 			<td>{{item.zcName}}</td>
 			<td>{{item.shul}}</td>
 			<td>{{item.jjf}}</td>
-            <td>{{item.lzsj}}</td>
+			<td>{{item.lzsj}}</td>
 		</tr>
 	</tbody>
 </x-table>
@@ -31,8 +31,8 @@ export default {
     name : "my_asset",
     data () {
 		return {
-            lzList : [], //流转信息列表
-            showMore : false //是否显示更多
+        	lzList : [], //流转信息列表
+        	showMore : false //是否显示更多
 		};
     },
     created () {

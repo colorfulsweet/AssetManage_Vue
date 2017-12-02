@@ -7,8 +7,8 @@
 			<th>编码</th>
 			<th>名称</th>
 			<th>数量</th>
-      <th>单位</th>
-      <th>状态</th>
+			<th>单位</th>
+			<th>状态</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -16,8 +16,8 @@
 			<td>{{item.zcid}}</td>
 			<td>{{item.mingch}}</td>
 			<td>{{item.shul}}</td>
-      <td>{{item.danwei}}</td>
-      <td v-bind:style="{color:(item.pdzt==='已盘点'?'green':'red')}">{{item.pdzt}}</td>
+			<td>{{item.danwei}}</td>
+			<td v-bind:style="{color:(item.pdzt==='已盘点'?'green':'red')}">{{item.pdzt}}</td>
 		</tr>
 	</tbody>
 </x-table>
@@ -28,14 +28,14 @@
 import { XTable } from 'vux'
 
 export default {
-    name : "inventory",
-    data () {
-        return {
-            zcList : []
-        }
-    },
-    created () {
-      this.$store.commit("setHeaderConf",
+	name : "inventory",
+	data () {
+		return {
+			zcList : []
+		}
+	},
+	created () {
+	  this.$store.commit("setHeaderConf",
 			{
 				hasbackbtn : true,
 				title : "资产盘点"
@@ -47,12 +47,12 @@ export default {
 			}}).then((response) => {
 				_this.zcList = response.data;
 			});
-    },
-    components : { XTable },
-    methods : {
-        trClick (index) {
+	},
+	components : { XTable },
+	methods : {
+		trClick (index) {
 					//TODO 弹出dialog输入盘点信息, 上传照片
-        }
-    }
+		}
+	}
 }
 </script>

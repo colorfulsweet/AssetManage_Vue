@@ -3,7 +3,7 @@
 <div>
 	<group title="资产查询检索">
 		<x-input type="text" v-model="zcID" title="编码" placeholder="请输入"
-			:show-clear="true" placeholder-align="right" text-align="right" max="9"></x-input>
+			:show-clear="true" placeholder-align="right" text-align="right" :max="9"></x-input>
 		<selector placeholder="请选择" v-model="name" title="名称" name="name" :options="names" ></selector>
 		<selector placeholder="请选择" v-model="type" title="类型" name="type" :options="types" ></selector>
 	</group>
