@@ -30,8 +30,9 @@
 		<group>
 			<cell title="资产名称" primary="content" :value="selectIndex?zcList[selectIndex].mingch:null"></cell>
 			<cell-form-preview :list="datailList"></cell-form-preview>
-			<cell title="相关照片" >
-				<img v-for="imgPath in imageList" style="width:7em;height:7em" :src="$store.state.readPhotoUrl+imgPath"/>
+			<cell title="相关照片" primary="content" :value="!imageList || !imageList.length ? '无' : null">
+				<img v-for="(imgPath,index) in imageList" v-bind:key="index" 
+					style="width:7em;height:7em" :src="$store.state.readPhotoUrl+imgPath"/>
 			</cell>
 		</group>
 	</div>

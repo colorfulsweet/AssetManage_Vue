@@ -63,6 +63,10 @@ export default {
             name : "当前资产",
             url : "/my/my_asset",
         },{
+            id : "my_messages",
+            name : "我的消息",
+            url : "/my/my_message",
+        },{
             id : "change_pwd",
             name : "修改密码",
             url : "/my/change_pwd",

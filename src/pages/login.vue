@@ -3,8 +3,10 @@
 <div>
 	<group gutter="0">
 		<form action="" method="post">
-		<x-input type="text" v-model="username" title="用户名" placeholder="请输入" required :show-clear="true" placeholder-align="right" text-align="right"></x-input>
-		<x-input type="password" v-model="password" title="密码" placeholder="请输入" required :show-clear="true" placeholder-align="right" text-align="right"></x-input>
+		<x-input type="text" v-model="username" title="用户名" placeholder="请输入" required 
+			:show-clear="true" placeholder-align="right" text-align="right"></x-input>
+		<x-input type="password" v-model="password" title="密码" placeholder="请输入" required 
+			:show-clear="true" placeholder-align="right" text-align="right"></x-input>
 		</form>
 	</group>
 	<div class="btn-container">
@@ -15,7 +17,6 @@
 </template>
 <script>
 import { XInput, Group, XButton, Cell } from 'vux'
-import qs from "qs"
 
 export default {
 	name : "login",

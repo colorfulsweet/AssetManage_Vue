@@ -10,6 +10,7 @@ import Inventory from "@/pages/zc/inventory"
 import MyAsset from "@/pages/my/my_asset"
 import MyRecord from "@/pages/my/my_record"
 import MyInfo from "@/pages/my/my_info"
+import ChangePwd from "@/pages/my/change_pwd"
 
 import store from "../store/store"
 
@@ -25,7 +26,8 @@ const router = new Router({
     {path: "/zc/inventory",component: Inventory},
     {path: "/my/my_asset",component: MyAsset},
     {path: "/my/my_record",component: MyRecord},
-    {path: "/my/my_info",component: MyInfo}
+    {path: "/my/my_info",component: MyInfo},
+    {path: "/my/change_pwd",component: ChangePwd}
   ]
 });
 //全局路由导航前置守卫
