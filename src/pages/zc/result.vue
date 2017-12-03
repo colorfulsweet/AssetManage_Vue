@@ -48,7 +48,7 @@
 <script>
 import { XTable,XButton,XDialog,CellFormPreview, Group, Cell,TransferDomDirective as TransferDom } from 'vux'
 //详情dialog当中包含的字段
-var datailColumns = {ggxh:"规格",shul:"数量",ppcj:"厂家",gysDcxm:"供应商"};
+const datailColumns = {ggxh:"规格",shul:"数量",ppcj:"厂家",gysDcxm:"供应商"};
 
 export default {
 	name : "result",
@@ -62,11 +62,7 @@ export default {
 		};
 	},
 	created () {
-		this.$store.commit("setHeaderConf",
-			{
-				hasbackbtn : true,
-				title : "查询结果"
-			});
+		this.$store.commit("setHeaderConf",{hasbackbtn : true,title : "查询结果"});
 		var _this = this;
 		//查询资产数据
 		this.$http.get(this.$store.state.apiUrl + "zichan/list",{params:{
@@ -124,7 +120,7 @@ export default {
 				return item.uuid;
 			});
 			if(selectedIds.length == 0) {
-				this.$vux.toast.text('请选择加入到清单的资产', 'middle')
+				this.$vux.toast.text('请选择加入到清单的资产', 'middle');
 				return;
 			}
 			//由于可以多次添加, 需要获取到上次添加的列表
