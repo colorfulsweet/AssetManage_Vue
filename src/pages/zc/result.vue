@@ -20,6 +20,7 @@
 		</tr>
 	</tbody>
 </x-table>
+<divider v-if="showTip">没有符合条件的数据</divider>
 <div class="btn-container">
 	<x-button @click.native="addToList" type="primary">添加到清单</x-button>
 	<x-button @click.native="showList" type="default">查看清单</x-button>
@@ -46,7 +47,7 @@
 </template>
 
 <script>
-import { XTable,XButton,XDialog,CellFormPreview, Group, Cell,TransferDomDirective as TransferDom } from 'vux'
+import { XTable,XButton,XDialog,CellFormPreview, Group, Cell,Divider,TransferDomDirective as TransferDom } from 'vux'
 //详情dialog当中包含的字段
 const datailColumns = {ggxh:"规格",shul:"数量",ppcj:"厂家",gysDcxm:"供应商"};
 
@@ -58,7 +59,8 @@ export default {
 			datailList :[],
 			selectIndex : null, //选中行的索引
 			showDialog : false,
-			imageList : []
+			imageList : [],
+			showTip : false
 		};
 	},
 	created () {
@@ -71,10 +73,13 @@ export default {
 			lbie : this.$route.query.type
 		}}).then((response) => {
 			_this.zcList = response.data;
+			if(!_this.zcList.length) {
+				_this.showTip = true;
+			}
 		});
 	},
 	directives: { TransferDom },
-	components : { XTable,XButton,XDialog,CellFormPreview,Group,Cell },
+	components : { XTable,XButton,XDialog,CellFormPreview,Group,Cell,Divider },
 	methods : {
 		/**
 		* 数据表格行点击事件函数
