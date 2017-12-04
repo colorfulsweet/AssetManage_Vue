@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 
 const port = 9000;
-const host = "192.168.1.101";
+const host = "127.0.0.1";
 const apiUrl = `http://${host}:${port}/`;
 const store = new Vuex.Store({
 	state: {
@@ -16,7 +16,7 @@ const store = new Vuex.Store({
 		},
 		apiUrl: apiUrl,
 		readPhotoUrl: apiUrl + "lz/readPhoto?photoPath=",
-		operateList : ["出库", "流转", "回收"],
+		operateList : ["出库", "流转", "处理"],
 		// 页头配置
 		headerConf : {
 			hasbackbtn : false,

@@ -39,11 +39,12 @@ export default {
         },{
             id : "zcpd",
             name : "资产盘点",
-            url : "/zc/inventory"
+            url : "/zc/inventory",
+            roles : ["MA","MK"]
         },{
             id : "zccl",
             name : "资产处理",
-            url : "/search?operate=3",
+            url : "/search?operate=3&target=/zc/inventory",
             roles : ["MA","MK"]
         },{
             id : "qrcodeScan",

@@ -45,10 +45,16 @@ export default {
 				this.$vux.toast.text('请输入查询条件', 'middle');
 				return;
 			}
-			this.$router.push(`/search/result?` +
-				`zcID=${this.zcID?this.zcID:''}&` +
-				`name=${this.name?this.name:''}&` +
-				`type=${this.type?this.type:''}`);
+			//查询参数
+			var query = `zcID=${this.zcID?this.zcID:''}&` +
+					`name=${this.name?this.name:''}&` +
+					`type=${this.type?this.type:''}`;
+			if(this.$route.query.target) {
+				//传递查询参数的目标页面路由地址, 如果没有就默认到result
+				this.$router.push(`${this.$route.query.target}?` + query);
+			} else {
+				this.$router.push(`/search/result?` + query);
+			}
 		}
 	}
 };

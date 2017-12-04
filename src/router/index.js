@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from  "@/pages/login"
-import Index from  "@/pages/index"
+import Login from	"@/pages/login"
+import Index from	"@/pages/index"
 import Search from "@/pages/search"
 import Result from "@/pages/zc/result"
 import List from "@/pages/zc/list"
@@ -17,29 +17,29 @@ import store from "../store/store"
 Vue.use(Router)
 
 const router = new Router({
-  routes: [
-    {path: '/',component: Login},
-    {path: "/index",component: Index},
-    {path: "/search",component: Search},
-    {path: "/search/result",component: Result},
-    {path: "/zc/list",component: List},
-    {path: "/zc/inventory",component: Inventory},
-    {path: "/my/my_asset",component: MyAsset},
-    {path: "/my/my_record",component: MyRecord},
-    {path: "/my/my_info",component: MyInfo},
-    {path: "/my/change_pwd",component: ChangePwd}
-  ]
+	routes: [
+		{path: '/',component: Login},
+		{path: "/index",component: Index},
+		{path: "/search",component: Search},
+		{path: "/search/result",component: Result},
+		{path: "/zc/list",component: List},
+		{path: "/zc/inventory",component: Inventory},
+		{path: "/my/my_asset",component: MyAsset},
+		{path: "/my/my_record",component: MyRecord},
+		{path: "/my/my_info",component: MyInfo},
+		{path: "/my/change_pwd",component: ChangePwd}
+	]
 });
 //全局路由导航前置守卫
 router.beforeEach(function (to, from, next) {
-  //显示加载提示框
-  store.commit('setLoading', true)
-  next()
-})
+	//显示加载提示框
+	store.commit('setLoading', true)
+	next()
+});
 //全局路由导航后置守卫
 router.afterEach(function (to) {
-  //隐藏加载提示框
-  store.commit('setLoading', false)
-})
+	//隐藏加载提示框
+	store.commit('setLoading', false)
+});
 
 export default router
