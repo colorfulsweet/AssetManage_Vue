@@ -27,7 +27,7 @@ export default {
             "安全劳保", "仪器仪表", "机械设备", "工具用具", "自购周转料具", "功能车辆"]
 		};
 	},
-	created : function(){
+	created () {
 		this.operate = this.$route.query.operate;
 		localStorage.setItem("operate", this.operate);
 		this.$store.commit("setHeaderConf",

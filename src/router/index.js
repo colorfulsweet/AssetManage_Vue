@@ -5,6 +5,7 @@ import Index from	"@/pages/index"
 import Search from "@/pages/search"
 import Result from "@/pages/zc/result"
 import List from "@/pages/zc/list"
+import Qrcode from "@/pages/zc/qrcode"
 import Inventory from "@/pages/zc/inventory"
 
 import MyAsset from "@/pages/my/my_asset"
@@ -23,8 +24,9 @@ const router = new Router({
 		{path: "/search",component: Search},
 		{path: "/search/result",component: Result},
 		{path: "/zc/list",component: List},
+		{path: "/zc/list/qrcode", component: Qrcode},
 		{path: "/zc/inventory",component: Inventory},
-		{path: "/my/my_asset",component: MyAsset},
+		{path: "/my∂/my_asset",component: MyAsset},
 		{path: "/my/my_record",component: MyRecord},
 		{path: "/my/my_info",component: MyInfo},
 		{path: "/my/change_pwd",component: ChangePwd}

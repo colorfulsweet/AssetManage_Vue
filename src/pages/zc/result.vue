@@ -104,10 +104,14 @@ export default {
 		* 选中/取消选中当前选择的资产数据
 		*/
 		selectZc () {
-			this.zcList.splice(this.selectIndex, 1,
-				Object.assign(this.zcList[this.selectIndex], {isSelected:!this.zcList[this.selectIndex].isSelected})
-			);
 			this.showDialog = false;
+			var _this = this;
+			var isSelected = !this.zcList[this.selectIndex].isSelected;
+			setTimeout(()=>{
+				_this.zcList.splice(_this.selectIndex, 1,
+					Object.assign(_this.zcList[_this.selectIndex], {isSelected})
+				);
+			},300);
 		},
 		/**
 		* "添加到清单"按钮点击事件函数

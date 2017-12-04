@@ -88,8 +88,10 @@ export default {
 			this.zcList.forEach(function(item){
 				zcInfo[item.uuid] = item.zcNum || item.shul;
 			});
-			this.saveLzxx(function(){
-				//TODO 跳转到二维码展示页面
+			var _this = this;
+			this.saveLzxx(()=>{
+				// 跳转到二维码展示页面
+				_this.$router.push("/zc/list/qrcode");
 			}, zcInfo);
 		},
 		/**
