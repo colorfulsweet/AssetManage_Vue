@@ -49,7 +49,7 @@ export default {
 		},{
 			id : "qrcodeScan",
 			name : "二维码扫描",
-			callback : "qrcodeScan",
+			url : "/native/qrcode_scan",
 			roles : ["MA","MK"]
 		}] , [{ //===我的===
 			id : "my_info",

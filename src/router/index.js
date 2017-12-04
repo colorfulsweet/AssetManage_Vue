@@ -7,11 +7,14 @@ import Result from "@/pages/zc/result"
 import List from "@/pages/zc/list"
 import Qrcode from "@/pages/zc/qrcode"
 import Inventory from "@/pages/zc/inventory"
+import Receive from "@/pages/zc/receive"
 
 import MyAsset from "@/pages/my/my_asset"
 import MyRecord from "@/pages/my/my_record"
 import MyInfo from "@/pages/my/my_info"
 import ChangePwd from "@/pages/my/change_pwd"
+
+import QrcodeScan from "@/pages/native/qrcode_scan"
 
 import store from "../store/store"
 
@@ -26,10 +29,12 @@ const router = new Router({
 		{path: "/zc/list",component: List},
 		{path: "/zc/list/qrcode", component: Qrcode},
 		{path: "/zc/inventory",component: Inventory},
-		{path: "/my∂/my_asset",component: MyAsset},
+		{path: "/zc/receive",component: Receive},
+		{path: "/my/my_asset",component: MyAsset},
 		{path: "/my/my_record",component: MyRecord},
 		{path: "/my/my_info",component: MyInfo},
-		{path: "/my/change_pwd",component: ChangePwd}
+		{path: "/my/change_pwd",component: ChangePwd},
+		{path: "/native/qrcode_scan",component: QrcodeScan}
 	]
 });
 //全局路由导航前置守卫
