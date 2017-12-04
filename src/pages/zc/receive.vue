@@ -29,6 +29,7 @@
 	<x-button @click.native="uploadPic" type="default">上传图片</x-button>
 	<x-button @click.native="finished" type="primary">完成</x-button>
 </div>
+</div>
 </template>
 <script>
 import { XTable,XButton } from 'vux'

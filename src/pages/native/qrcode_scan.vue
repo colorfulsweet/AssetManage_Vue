@@ -58,7 +58,7 @@ export default {
 					}
 					break;
 				case "2" : //流转(必须由MK扫码)
-					if(_.findIndex(login_user.roles, function(item){return item === "MK";}) !== -1) {
+					if(currentUser.roles.findIndex((item) => {return item === "MK";}) !== -1) {
 						this.$router.push("/zc/receive");
 					} else {
 						this.$vux.alert.show({title: '提示',content: '无操作权限'});
@@ -74,11 +74,13 @@ export default {
 	    scan.start(); //开始执行扫描(可以传入参数)
 	},
 	beforeDestroy () {
-		//结束对摄像头获取图片数据进行条码识别操作，同时关闭摄像头的视频捕获
-		//结束后可调用start方法重新开始识别
-		scan.cancel();
-		//释放控件占用系统资源，调用close方法后控件对象将不可使用
-		scan.close();
+		if(scan) {
+			//结束对摄像头获取图片数据进行条码识别操作，同时关闭摄像头的视频捕获
+			//结束后可调用start方法重新开始识别
+			scan.cancel();
+			//释放控件占用系统资源，调用close方法后控件对象将不可使用
+			scan.close();
+		}
 	}
 }
 </script>
