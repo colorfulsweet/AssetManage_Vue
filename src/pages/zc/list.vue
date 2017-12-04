@@ -88,10 +88,9 @@ export default {
 			this.zcList.forEach(function(item){
 				zcInfo[item.uuid] = item.zcNum || item.shul;
 			});
-			var _this = this;
-			this.saveLzxx(()=>{
+			this.saveLzxx(function(){
 				// 跳转到二维码展示页面
-				_this.$router.push("/zc/list/qrcode");
+				this.$router.push("/zc/list/qrcode");
 			}, zcInfo);
 		},
 		/**
@@ -114,7 +113,8 @@ export default {
 			});
 			this.saveLzxx(function(){
 				localStorage.setItem("from", "noQrcode");
-				//TODO 跳转到接收页面
+				// 跳转到接收页面
+				this.$router.replace("/zc/receive");
 			}, zcInfo);
 		},
 		/**
@@ -134,15 +134,16 @@ export default {
 		 * @param {object} zcInfo 资产信息 资产ID:数量 键值对结构, 如 {"1001":10,"1002":5.6}
 		 */
 		saveLzxx (callback, zcInfo) {
+			var _this = this;
 			this.$http.post(this.$store.state.apiUrl + "lz/save", {
 				bgrId : this.$store.state.loginInfo.userData.uuid,
 				zcInfo : JSON.stringify(zcInfo),
 				operate : localStorage.getItem("operate")
-			}).then(function(response){
+			}).then((response) => {
 				localStorage.removeItem("selectedIds");
 				localStorage.setItem("operateId", response.data);
 				if(typeof callback === "function") {
-					callback.call(this);
+					callback.call(_this);
 				}
 			});
 		}

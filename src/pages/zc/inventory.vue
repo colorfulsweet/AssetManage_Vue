@@ -35,8 +35,9 @@
 		</group>
 	</div>
 	<div class="btn-container">
-		<x-button @click.native="uploadPhoto" type="primary">上传照片</x-button>
-		<x-button @click.native="pdComplete" type="primary">完成</x-button>
+		<x-button @click.native="takePhoto" type="primary">拍照</x-button>
+		<x-button @click.native="uploadPic" type="primary">上传照片</x-button>
+		<x-button @click.native="pdComplete" type="default">完成</x-button>
 	</div>
 </x-dialog>
 
@@ -114,9 +115,16 @@ export default {
 		/**
 		 * 上传盘点/处理照片
 		 */
-		uploadPhoto () {
+		uploadPic () {
 			//TODO 调用文件选择器 文件上传
 			
+		},
+		/**
+		 * 拍照
+		 */
+		takePhoto () {
+			//TODO 拍照
+
 		},
 		/**
 		 * 盘点/处理 完成

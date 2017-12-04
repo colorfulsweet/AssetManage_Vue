@@ -32,7 +32,7 @@
 </div>
 </template>
 <script>
-import { XTable,XButton } from 'vux'
+import { XTable,XButton,Group,XInput } from 'vux'
 
 export default {
 	name : "receive",
@@ -46,6 +46,7 @@ export default {
 			targetTel : null //交接方手机号码
 		}
 	},
+	components : { XTable,XButton,Group,XInput },
 	created() {
 		var _this = this;
 		this.$store.commit("setHeaderConf", 
@@ -66,7 +67,7 @@ export default {
 		trClick (index) {
 			if(this.zcList[index].isSelected) {
 				//该行当前在被选中的状态
-				this.zcList[index].isSelected = true;
+				this.zcList[index].isSelected = false;
 				this.selectItemIndex = null;
 			} else {
 				//该行当前在未被选中的状态
