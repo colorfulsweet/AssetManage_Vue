@@ -29,8 +29,8 @@ const router = new Router({
 	routes: [
 		{path: '/',component: Login},
 		{path: "/index",component: Index, children:[ //子路由
-			{name:"main", path: "main", component:IndexMain},
-			{name:"my", path: "my", component:IndexMy}
+			{name:"index_main", path: "main", component:IndexMain},
+			{name:"index_my", path: "my", component:IndexMy}
 		]},
 		{path: "/search",component: Search},
 		{path: "/search/result",component: Result},

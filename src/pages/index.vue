@@ -1,7 +1,9 @@
 <!-- 首页/我的 -->
 <template>
 <div>
-	<router-view class="index-view"/>
+	<transition :name="indexViewTransition">
+		<router-view class="index-view"/>
+	</transition>
 	<tabbar>
 		<template v-for="(item,index) in tabs.items">
 		<tabbar-item @on-item-click="tabClick" v-bind:selected="index==0" v-bind:key="index">
@@ -23,13 +25,14 @@ export default {
 			items : [{
 				name : "首页",
 				icon : "home",
-				target : "main"
+				target : "index_main"
 			},{
 				name : "我的",
 				icon : "user",
-				target : "my"
+				target : "index_my"
 			}]
-		}
+		},
+		indexViewTransition : 'index-left'
 		};
 	},
 	created () {
@@ -52,6 +55,7 @@ export default {
 		 * tab页签点击事件
 		 */
 		tabClick (index) {
+			this.indexViewTransition = (this.tabs.selectIndex > index ? "index-right" : "index-left");
 			this.tabs.selectIndex = index;
 			this.$router.replace( {name : this.tabs.items[index].target} );
 		}
@@ -60,7 +64,20 @@ export default {
 </script>
 <style scope>
 .fa {
-	font-size: 1.2em;
+	font-size: 1.3em;
 }
-
+.index-view {
+	position: absolute;
+	width: 100%;
+	height : calc(100vh - 2.9em - 3em);
+	transition: all .5s ease-in-out;
+}
+.index-left-enter, .index-right-leave-active {
+	-webkit-transform: translate(100vw, 0);
+	transform: translate(100vw, 0);
+}
+.index-left-leave-active, .index-right-enter {
+	-webkit-transform: translate(-100vw, 0);
+	transform: translate(-100vw, 0);
+}
 </style>

@@ -5,7 +5,7 @@
 		{{$store.state.headerConf.title}}
 	</x-header>
 	<user-info :realname="$store.state.loginInfo.userData ? $store.state.loginInfo.userData.realname : null"></user-info>
-	<transition :name="transitionName">
+	<transition :name="mainViewTransition">
 		<router-view class="main-view"/>
 	</transition>
 </div>
@@ -20,8 +20,7 @@ export default {
 	name: 'app',
 	data () {
 		return {
-			transitionName: 'slide-left',
-			isLoading : true
+			mainViewTransition: 'slide-left'
 		};
 	},
 	components : {
@@ -31,7 +30,7 @@ export default {
 		'$route' (to, from) {
 			const toDepth = to.path.split('/').length
 			const fromDepth = from.path.split('/').length
-			this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+			this.mainViewTransition = toDepth < fromDepth ? 'slide-right' : 'slide-left'
 		}
 	}
 }

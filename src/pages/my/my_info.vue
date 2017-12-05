@@ -3,8 +3,8 @@
 <div>
 	<group>
 		<template v-if="modify">
-			<x-input title="用户名" v-model="currentUser.user" required="true" text-align="right"></x-input>
-			<x-input title="姓名" v-model="currentUser.realname" required="true" text-align="right"></x-input>
+			<x-input title="用户名" v-model="currentUser.user" :required="true" text-align="right"></x-input>
+			<x-input title="姓名" v-model="currentUser.realname" :required="true" text-align="right"></x-input>
 			<x-input title="职务" v-model="currentUser.title" text-align="right"></x-input>
 			<!-- mask="999 9999 9999" 可以格式化手机号码, 实际值也是格式化之后的值, 包含空格 -->
 			<x-input title="联系电话" v-model="currentUser.lxdh" is-type="china-mobile" text-align="right"></x-input>

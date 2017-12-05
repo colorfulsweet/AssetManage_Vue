@@ -22,11 +22,11 @@ export default {
 			menus :[{ //===我的===
 				id : "my_info",
 				name : "我的信息",
-				url : "my/my_info",
+				url : "/my/my_info",
 			},{
 				id : "my_record",
 				name : "我的记录",
-				url : "my/my_record",
+				url : "/my/my_record",
 			},{
 				id : "my_assets",
 				name : "当前资产",
