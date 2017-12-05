@@ -107,23 +107,24 @@ export default {
 					this.$vux.toast.text('请输入对方手机号码', 'middle');
 					return;
 				}
+				var _this = this;
 				this.$http.post(this.$store.state.apiUrl + "lz/saveTargetTel", {
 					operateId : this.operateId,
 					operate : this.operate,
 					targetTel : this.targetTel
 				}).then(function(response){
 					if(!response.data.status) {
-						appcan.window.openToast(res.msg, '2000');
+						this.$vux.toast.text(res.msg, 'middle');
 						return;
 					}
-					//TODO 跳转zc_confirm
+					_this.$router.push("/zc/receive/confirm");
 				});
 				return;
 			case "index" : //扫码操作后解析二维码 -> 跳转至本页面
-				//TODO 跳转zc_confirm
+				this.$router.push("/zc/receive/confirm");
 				break;
 			case "qrcode" : //二维码展示页面等待对方扫码确认完成 -> 跳转至本页面
-				//TODO 跳转count
+				this.$router.push("/zc/receive/count");
 				break;
 			}
 

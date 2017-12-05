@@ -8,6 +8,8 @@ import List from "@/pages/zc/list"
 import Qrcode from "@/pages/zc/qrcode"
 import Inventory from "@/pages/zc/inventory"
 import Receive from "@/pages/zc/receive"
+import Confirm from "@/pages/zc/confirm"
+import Count from "@/pages/zc/count"
 
 import MyAsset from "@/pages/my/my_asset"
 import MyRecord from "@/pages/my/my_record"
@@ -30,6 +32,8 @@ const router = new Router({
 		{path: "/zc/list/qrcode", component: Qrcode},
 		{path: "/zc/inventory",component: Inventory},
 		{path: "/zc/receive",component: Receive},
+		{path: "/zc/receive/confirm",component: Confirm},
+		{path: "/zc/receive/count",component: Count},
 		{path: "/my/my_asset",component: MyAsset},
 		{path: "/my/my_record",component: MyRecord},
 		{path: "/my/my_info",component: MyInfo},

@@ -116,7 +116,7 @@ export default {
 				_this.zcList.splice(_this.selectIndex, 1,
 					Object.assign(_this.zcList[_this.selectIndex], {isSelected})
 				);
-			},300);
+			},200);
 		},
 		/**
 		* "添加到清单"按钮点击事件函数

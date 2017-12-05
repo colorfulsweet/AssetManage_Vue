@@ -51,7 +51,7 @@ var successCallback = function(type, code, file){
 			if(currentUser.roles.findIndex((item) => {return item === "MA";}) !== -1) {
 				this.$router.replace("/zc/receive");
 			} else if(currentUser.roles.findIndex((item) => {return item === "MK";}) !== -1) {
-				this.$router.replace("/zc/confirm");
+				this.$router.replace("/zc/receive/confirm");
 			} else {
 				this.$vux.alert.show({title: '提示',content: '无操作权限'});
 			}
