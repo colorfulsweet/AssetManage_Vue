@@ -56,7 +56,7 @@ export default {
 						position : "middle",
 						onHide () {
 							_this.$store.commit("login", response.data.data);
-							_this.$router.push("/index");
+							_this.$router.push("/index/main");
 						}
 					});
 				}

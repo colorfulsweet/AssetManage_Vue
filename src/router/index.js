@@ -2,6 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from	"@/pages/login"
 import Index from	"@/pages/index"
+import IndexMain from "@/pages/index/main"
+import IndexMy from "@/pages/index/my"
+
 import Search from "@/pages/search"
 import Result from "@/pages/zc/result"
 import List from "@/pages/zc/list"
@@ -25,7 +28,10 @@ Vue.use(Router)
 const router = new Router({
 	routes: [
 		{path: '/',component: Login},
-		{path: "/index",component: Index},
+		{path: "/index",component: Index, children:[ //子路由
+			{name:"main", path: "main", component:IndexMain},
+			{name:"my", path: "my", component:IndexMy}
+		]},
 		{path: "/search",component: Search},
 		{path: "/search/result",component: Result},
 		{path: "/zc/list",component: List},
