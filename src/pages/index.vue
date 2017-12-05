@@ -6,7 +6,7 @@
 	</transition>
 	<tabbar>
 		<template v-for="(item,index) in tabs.items">
-		<tabbar-item @on-item-click="tabClick" v-bind:selected="index==0" v-bind:key="index">
+		<tabbar-item @on-item-click="tabClick" v-bind:selected="index==tabs.selectIndex" v-bind:key="index">
 			<i :class="'fa fa-'+item.icon" slot="label"></i>
 			<span class="fa" slot="label">{{item.name}}</span>
 		</tabbar-item>
@@ -49,12 +49,21 @@ export default {
 			}
 		}
 	},
+	beforeRouteEnter (to, from, next) {
+		next(vm => {
+			//根据路由的名称确定要选中哪个tab
+			vm.tabs.selectIndex = vm.tabs.items.findIndex((item)=>{return item.target===to.name});
+		});
+	},
 	components : { Tabbar, TabbarItem },
 	methods : {
 		/**
 		 * tab页签点击事件
 		 */
 		tabClick (index) {
+			if(this.tabs.selectIndex == index) {
+				return;
+			}
 			this.indexViewTransition = (this.tabs.selectIndex > index ? "index-right" : "index-left");
 			this.tabs.selectIndex = index;
 			this.$router.replace( {name : this.tabs.items[index].target} );

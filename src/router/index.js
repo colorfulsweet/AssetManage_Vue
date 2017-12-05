@@ -27,7 +27,7 @@ Vue.use(Router)
 
 const router = new Router({
 	routes: [
-		{path: '/',component: Login},
+		{name: "login", path: '/',component: Login},
 		{path: "/index",component: Index, children:[ //子路由
 			{name:"index_main", path: "main", component:IndexMain},
 			{name:"index_my", path: "my", component:IndexMy}
@@ -50,13 +50,17 @@ const router = new Router({
 //全局路由导航前置守卫
 router.beforeEach(function (to, from, next) {
 	//显示加载提示框
-	store.commit('setLoading', true)
-	next()
+	store.commit('setLoading', true);
+	if(to.name !== "login") {
+		store.state.loginInfo.userData ? next() : next("/"),store.commit('setLoading', false);
+	} else {
+		next();
+	}
 });
 //全局路由导航后置守卫
 router.afterEach(function (to) {
 	//隐藏加载提示框
-	store.commit('setLoading', false)
+	store.commit('setLoading', false);
 });
 
 export default router
