@@ -86,7 +86,7 @@ export default {
 	 */
 	mounted () {
 		if(!("plus" in window)) {
-			console.log("请使用真机或模拟器进行调试!");
+			console.warn("请使用真机或模拟器进行调试!");
 			return;
 		}
 		scan = new plus.barcode.Barcode('scan-panel');

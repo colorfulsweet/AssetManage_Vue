@@ -141,8 +141,32 @@ export default {
 		 * 拍照
 		 */
 		takePhoto () {
-			//TODO 拍照
+			if(!("plus" in window)) {
+				console.warn("请使用真机或模拟器进行调试!");
+				return;
+			}
+			var _this = this;
+			//获取需要操作的摄像头对象, 1表示主摄像头, 2表示辅摄像头
+			const cmr = plus.camera.getCamera(1);
+			//执行拍照操作, 参数分别是 成功回调(必选),失败回调,拍照参数(必选)
+			cmr.captureImage( (capturedFile) => {
+				//capturedFile - 保存的文件路径
+				// 上传文件
+				var upload = plus.uploader.createUpload(
+					_this.$store.state.apiUrl + "pd/uploadPhoto",
+					{method:"POST"},
+					function(response,status){ //上传完成
+						//响应:response.responseText
+						//TODO 在页面添加图片预览
+					}
+				);
+				upload.addData("zcUuid", _this.zcList[_this.selectIndex].uuid);
+				upload.addFile(capturedFile, {});
+				upload.start(); //开始执行上传
 
+			}, (err) => {
+				_this.$vux.alert.show({ title: "提示",content: "拍照出错:"+err.toString() });
+			}, {filename:'_doc/camera/',index:1} );
 		},
 		/**
 		 * 盘点/处理 完成
