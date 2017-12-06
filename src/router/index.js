@@ -1,30 +1,36 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from	"@/pages/login"
-import Index from	"@/pages/index"
-import IndexMain from "@/pages/index/main"
-import IndexMy from "@/pages/index/my"
+// import Login from "@/pages/login"
+// import Index from "@/pages/index"
+//路由组件懒加载并分块打包(Webpack > 2.4提供的一种特定的注释语法)
 
-import Search from "@/pages/search"
-import Result from "@/pages/zc/result"
-import List from "@/pages/zc/list"
-import Qrcode from "@/pages/zc/qrcode"
-import Inventory from "@/pages/zc/inventory"
-import Receive from "@/pages/zc/receive"
-import Confirm from "@/pages/zc/confirm"
-import Count from "@/pages/zc/count"
+const Login = () => import(/* webpackChunkName: "index" */"../pages/login")
+const Index = () => import(/* webpackChunkName: "index" */"../pages/index")
+const IndexMain = () => import(/* webpackChunkName: "index" */"../pages/index/main")
+const IndexMy = () => import(/* webpackChunkName: "index" */"../pages/index/my")
 
-import MyAsset from "@/pages/my/my_asset"
-import MyRecord from "@/pages/my/my_record"
-import MyInfo from "@/pages/my/my_info"
-import ChangePwd from "@/pages/my/change_pwd"
+const Search = () => import(/* webpackChunkName: "zichan" */"../pages/search")
+const Result = () => import(/* webpackChunkName: "zichan" */"../pages/zc/result")
+const List = () => import(/* webpackChunkName: "zichan" */"../pages/zc/list")
+const Qrcode = () => import(/* webpackChunkName: "zichan" */"../pages/zc/qrcode")
+const Inventory = () => import(/* webpackChunkName: "zichan" */"../pages/zc/inventory")
+const Receive = () => import(/* webpackChunkName: "zichan" */"../pages/zc/receive")
+const Confirm = () => import(/* webpackChunkName: "zichan" */"../pages/zc/confirm")
+const Count = () => import(/* webpackChunkName: "zichan" */"../pages/zc/count")
+const ZcTip = () => import(/* webpackChunkName: "zichan" */"../pages/zc/tip")
 
-import QrcodeScan from "@/pages/native/qrcode_scan"
+const MyAsset = () => import(/* webpackChunkName: "aboutMe" */"../pages/my/my_asset")
+const MyRecord = () => import(/* webpackChunkName: "aboutMe" */"../pages/my/my_record")
+const MyInfo = () => import(/* webpackChunkName: "aboutMe" */"../pages/my/my_info")
+const ChangePwd = () => import(/* webpackChunkName: "aboutMe" */"../pages/my/change_pwd")
+
+const QrcodeScan = () => import(/* webpackChunkName: "native" */"../pages/native/qrcode_scan")
 
 import store from "../store/store"
 
 Vue.use(Router)
-
+//将所有页面组件一次性加载是一个很浪费资源和考验用户耐心的做法，尤其在移动端。
+//webpack 提供了code splitting，实现当切换到特定路由时才加载代码。
 const router = new Router({
 	routes: [
 		{name: "login", path: '/',component: Login},
@@ -40,6 +46,7 @@ const router = new Router({
 		{path: "/zc/receive",component: Receive},
 		{path: "/zc/receive/confirm",component: Confirm},
 		{path: "/zc/receive/count",component: Count},
+		{path: "/zc/receive/tip",component: ZcTip},
 		{path: "/my/my_asset",component: MyAsset},
 		{path: "/my/my_record",component: MyRecord},
 		{path: "/my/my_info",component: MyInfo},

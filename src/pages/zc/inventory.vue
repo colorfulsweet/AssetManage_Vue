@@ -174,4 +174,7 @@ export default {
 		overflow:scroll;
 	}
 }
+.weui-cell__hd {
+	text-align: left;
+}
 </style>
