@@ -18,6 +18,7 @@ const Receive = () => import(/* webpackChunkName: "zichan" */"../pages/zc/receiv
 const Confirm = () => import(/* webpackChunkName: "zichan" */"../pages/zc/confirm")
 const Count = () => import(/* webpackChunkName: "zichan" */"../pages/zc/count")
 const ZcTip = () => import(/* webpackChunkName: "zichan" */"../pages/zc/tip")
+const ZcShow = () => import(/* webpackChunkName: "zichan" */"../pages/zc/show")
 
 const MyAsset = () => import(/* webpackChunkName: "aboutMe" */"../pages/my/my_asset")
 const MyRecord = () => import(/* webpackChunkName: "aboutMe" */"../pages/my/my_record")
@@ -47,6 +48,7 @@ const router = new Router({
 		{path: "/zc/receive/confirm",component: Confirm},
 		{path: "/zc/receive/count",component: Count},
 		{path: "/zc/receive/tip",component: ZcTip},
+		{path: "/zc/receive/show",component: ZcShow},
 		{path: "/my/my_asset",component: MyAsset},
 		{path: "/my/my_record",component: MyRecord},
 		{path: "/my/my_info",component: MyInfo},
