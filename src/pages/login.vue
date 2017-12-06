@@ -10,7 +10,7 @@
 		</form>
 	</group>
 	<div class="btn-container">
-		<x-button @click.native="loginSubmit" type="primary">登陆</x-button>
+		<x-button @click.native="loginSubmit" type="primary">登录</x-button>
 		<div>测试用户 : MA1 MK1 MK2 , 密码都是123</div>
 	</div>
 </div>
@@ -30,7 +30,7 @@ export default {
 		XInput, Group, XButton, Cell
 	},
 	created () {
-		this.$store.commit("setHeaderConf", {hasbackbtn : false,title : "登录"});
+		this.$store.commit("setHeaderConf", {hasbackbtn : false,title : "资产管理系统"});
 	},
 	methods : {
 		loginSubmit () {

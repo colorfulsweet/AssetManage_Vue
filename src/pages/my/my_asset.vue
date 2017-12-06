@@ -22,7 +22,7 @@
 <x-dialog hide-on-blur :show.sync="showDialog" class="detail-dialog">
 	<div class="detail-panel">
 		<group>
-			<cell title="资产名称" primary="content" :value="selectIndex?zcList[selectIndex].mingch:null"></cell>
+			<cell title="资产名称" primary="content" :value="selectIndex!==null?zcList[selectIndex].mingch:null"></cell>
 			<cell-form-preview :list="datailList"></cell-form-preview>
 		</group>
 	</div>

@@ -82,4 +82,11 @@ html,body{
 .btn-container {
 	padding: 1em;
 }
+.table-body-container {
+	overflow-y: auto;
+	box-shadow: 0px 0px 5px #626262 inset;
+}
+.table-body-container td {
+	word-wrap: break-word;
+}
 </style>

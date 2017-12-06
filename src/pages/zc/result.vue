@@ -4,26 +4,33 @@
 <x-table :cell-bordered="false" >
 	<thead>
 		<tr style="background-color: #F7F7F7">
-			<th>编码</th>
-			<th>名称</th>
-			<th>类别</th>
-			<th>数量</th>
+			<th style="width:28%">编码</th>
+			<th style="width:28%">名称</th>
+			<th style="width:28%">类别</th>
+			<th style="width:16%">数量</th>
 		</tr>
 	</thead>
+</x-table>
+<div class="table-body-container">
+<x-table :cell-bordered="false" >
 	<tbody>
+		<!-- TODO 使用 scroller InlineLoading 组件实现滚动加载 -->
 		<tr v-for="(item,index) in zcList" :key="item.uuid" v-on:click="trClick(index)"
 			v-bind:class="{selected : item.isSelected}">
-			<td>{{item.zcid}}</td>
-			<td>{{item.mingch}}</td>
-			<td>{{item.lbie}}</td>
-			<td>{{item.shul}}</td>
+			<td style="width:28%">{{item.zcid}}</td>
+			<td style="width:28%">{{item.mingch}}</td>
+			<td style="width:28%">{{item.lbie}}</td>
+			<td style="width:16%">{{item.shul}}</td>
 		</tr>
 	</tbody>
 </x-table>
+</div>
 <divider v-if="showTip">没有符合条件的数据</divider>
 <div class="btn-container">
-	<x-button @click.native="addToList" type="primary">添加到清单</x-button>
-	<x-button @click.native="showList" type="default">查看清单</x-button>
+	<flexbox>
+	<flexbox-item><x-button @click.native="addToList" type="primary">添加到清单</x-button></flexbox-item>
+	<flexbox-item><x-button @click.native="showList" type="default">查看清单</x-button></flexbox-item>
+	</flexbox>
 </div>
 <!-- 详细信息dialog -->
 <x-dialog hide-on-blur :show.sync="showDialog" class="detail-dialog">
@@ -47,7 +54,8 @@
 </template>
 
 <script>
-import { XTable,XButton,XDialog,CellFormPreview, Group, Cell,Divider,TransferDomDirective as TransferDom } from 'vux'
+import { XTable,XButton,XDialog,CellFormPreview, Flexbox, FlexboxItem,
+		Group, Cell,Divider,TransferDomDirective as TransferDom } from 'vux'
 //详情dialog当中包含的字段
 const datailColumns = {ggxh:"规格",shul:"数量",ppcj:"厂家",gysDcxm:"供应商"};
 
@@ -79,7 +87,8 @@ export default {
 		});
 	},
 	directives: { TransferDom },
-	components : { XTable,XButton,XDialog,CellFormPreview,Group,Cell,Divider },
+	components : { XTable,XButton,XDialog,CellFormPreview,
+			Flexbox,FlexboxItem,Group,Cell,Divider },
 	methods : {
 		/**
 		* 数据表格行点击事件函数
@@ -102,6 +111,7 @@ export default {
 			//获取资产流转的最后一张照片
 			this.$http.post(this.$store.state.apiUrl + "zichan/findLastPhoto", {zcid : this.zcList[index].zcid})
 			.then(function(response){
+				//TODO  图片展示使用 Previewer 组件
 				_this.imageList = response.data;
 			});
 		},
@@ -167,14 +177,15 @@ export default {
 	}
 }
 </script>
-<style lang="less" scope>
+<style scope>
 tr.selected {
 	background-color: rgb(238,248,172);
 }
-.detail-dialog {
-	.detail-panel {
-		max-height: calc(70vh);
-		overflow:scroll;
-	}
+.detail-dialog .detail-panel{
+	max-height: calc(70vh);
+	overflow:scroll;
+}
+.table-body-container {
+	max-height: calc(100vh - 10em);
 }
 </style>

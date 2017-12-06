@@ -22,14 +22,22 @@
 	</tbody>
 	</x-table>
 	<div class="btn-container">
-		<x-button @click.native="toQrcode" type="primary">生成二维码</x-button>
-		<x-button @click.native="continueSearch" type="primary">继续检索添加</x-button>
-		<x-button @click.native="toReceive" type="default">对方无法扫码</x-button>
+		<flexbox orient="vertical">
+			<flexbox-item>
+			<flexbox>
+			<flexbox-item><x-button @click.native="toQrcode" type="primary">生成二维码</x-button></flexbox-item>
+			<flexbox-item><x-button @click.native="toReceive" type="default">对方无法扫码</x-button></flexbox-item>
+			</flexbox>
+			</flexbox-item>
+			<flexbox-item>
+			<x-button @click.native="continueSearch" type="default">继续检索添加</x-button>
+			</flexbox-item>
+		</flexbox>
 	</div>
 </div>
 </template>
 <script>
-import { XTable,XButton } from 'vux'
+import { XTable,XButton,Flexbox,FlexboxItem } from 'vux'
 
 export default {
 	name : "zc_list",
@@ -53,7 +61,7 @@ export default {
 				_this.zcList = response.data;
 			});
 	},
-	components : { XTable,XButton },
+	components : { XTable,XButton,Flexbox,FlexboxItem },
 	methods : {
 		/**
 		 * 数量输入框修改事件函数

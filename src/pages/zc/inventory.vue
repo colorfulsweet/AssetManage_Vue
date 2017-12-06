@@ -4,23 +4,28 @@
 <x-table :cell-bordered="false" >
 	<thead>
 		<tr style="background-color: #F7F7F7">
-			<th>编码</th>
-			<th>名称</th>
-			<th>数量</th>
-			<th>单位</th>
-			<th>状态</th>
+			<th style="width:20%">编码</th>
+			<th style="width:25%">名称</th>
+			<th style="width:15%">数量</th>
+			<th style="width:15%">单位</th>
+			<th style="width:25%">状态</th>
 		</tr>
 	</thead>
+</x-table>
+<div class="table-body-container">
+<x-table :cell-bordered="false" >
 	<tbody>
 		<tr v-for="(item,index) in zcList" :key="item.uuid" v-on:click="trClick(index)">
-			<td>{{item.zcid}}</td>
-			<td>{{item.mingch}}</td>
-			<td>{{item.shul}}</td>
-			<td>{{item.danwei}}</td>
-			<td v-bind:style="{color:(item.pdzt==='已盘点'?'green':'red')}">{{item.pdzt}}</td>
+			<td style="width:20%">{{item.zcid}}</td>
+			<td style="width:25%">{{item.mingch}}</td>
+			<td style="width:15%">{{item.shul}}</td>
+			<td style="width:15%">{{item.danwei}}</td>
+			<td v-bind:style="{color:(item.pdzt==='已盘点'?'green':'red')}"
+				style="width:25%">{{item.pdzt}}</td>
 		</tr>
 	</tbody>
 </x-table>
+</div>
 <!-- 盘点/处理 详细信息dialog -->
 <x-dialog hide-on-blur :show.sync="showDialog" v-on:on-hide="clearPd" class="detail-dialog">
 	<div class="detail-panel">
@@ -35,16 +40,29 @@
 		</group>
 	</div>
 	<div class="btn-container">
-		<x-button @click.native="takePhoto" type="primary">拍照</x-button>
-		<x-button @click.native="uploadPic" type="primary">上传照片</x-button>
-		<x-button @click.native="pdComplete" type="default">完成</x-button>
+		<flexbox orient="vertical">
+			<flexbox-item>
+			<flexbox>
+				<flexbox-item>
+				<x-button @click.native="takePhoto" type="primary">拍照</x-button>
+				</flexbox-item>
+				<flexbox-item>
+				<x-button @click.native="uploadPic" type="primary">上传照片</x-button>
+				</flexbox-item>
+			</flexbox>
+			</flexbox-item>
+			<flexbox-item>
+			<x-button @click.native="pdComplete" type="default">完成</x-button>
+			</flexbox-item>
+		</flexbox>
 	</div>
 </x-dialog>
 
 </div>
 </template>
 <script>
-import { XTable,XButton,XDialog,Group, Cell,XInput,Selector,TransferDomDirective as TransferDom } from 'vux'
+import { XTable,XButton,XDialog,Group, Cell,XInput,Selector,
+		Flexbox, FlexboxItem,TransferDomDirective as TransferDom } from 'vux'
 
 const pdStatuses = ["已盘点", "未盘点"];
 export default {
@@ -99,7 +117,7 @@ export default {
 		});
 	},
 	directives: { TransferDom },
-	components : { XTable,XButton,XDialog,Group, Cell,XInput,Selector },
+	components : { XTable,XButton,XDialog,Group,Cell,XInput,Selector,Flexbox,FlexboxItem },
 	methods : {
 		/**
 		 * 行点击事件-显示dialog
@@ -167,14 +185,15 @@ export default {
 	}
 }
 </script>
-<style lang="less" scope>
-.detail-dialog {
-	.detail-panel {
-		max-height: calc(70vh);
-		overflow:scroll;
-	}
+<style scope>
+.detail-dialog .detail-panel {
+	max-height: calc(70vh);
+	overflow:scroll;
 }
 .weui-cell__hd {
 	text-align: left;
+}
+.table-body-container {
+	max-height: calc(100vh - 5.4em);
 }
 </style>
