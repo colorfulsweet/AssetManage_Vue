@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from "../store/store"
+
 // import Login from "@/pages/login"
 // import Index from "@/pages/index"
 //路由组件懒加载并分块打包(Webpack > 2.4提供的一种特定的注释语法)
@@ -27,8 +29,6 @@ const ChangePwd = () => import(/* webpackChunkName: "aboutMe" */"../pages/my/cha
 
 const QrcodeScan = () => import(/* webpackChunkName: "native" */"../pages/native/qrcode_scan")
 
-import store from "../store/store"
-
 Vue.use(Router)
 //将所有页面组件一次性加载是一个很浪费资源和考验用户耐心的做法，尤其在移动端。
 //webpack 提供了code splitting，实现当切换到特定路由时才加载代码。
@@ -39,7 +39,7 @@ const router = new Router({
 			{name:"index_main", path: "main", component:IndexMain},
 			{name:"index_my", path: "my", component:IndexMy}
 		]},
-		{path: "/search",component: Search},
+		{name:"search", path: "/search",component: Search},
 		{path: "/search/result",component: Result},
 		{path: "/zc/list",component: List},
 		{path: "/zc/list/qrcode", component: Qrcode},

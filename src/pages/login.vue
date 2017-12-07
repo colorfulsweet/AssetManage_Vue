@@ -52,7 +52,7 @@ export default {
 					localStorage.setItem("re_username", _this.username);
 					_this.$vux.toast.show({
 						text : "登陆成功",
-						type : "text",
+						type : "success",
 						position : "middle",
 						onHide () {
 							_this.$store.commit("login", response.data.data);

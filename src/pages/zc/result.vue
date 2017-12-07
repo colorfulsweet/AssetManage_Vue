@@ -71,7 +71,7 @@ export default {
 			showDialog : false, //dialog是否显示
 			imageList : [], //dialog当中的图片列表
 			showTip : false,
-			previewerOptions: {
+			previewerOptions: { //构建从缩略图放大展开的动画效果
 				getThumbBoundsFn (index) {
 				// 找到缩略图的元素
 				let thumbnail = document.querySelectorAll('.previewer-img')[index]

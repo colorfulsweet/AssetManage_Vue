@@ -46,9 +46,11 @@ Vue.http.interceptors.response.use(function(response){
 	// 请求完成之后的处理逻辑
 	vm.$store.commit("setLoading", false);
 	return response;
+}, function(error) {
+	vm.$store.commit("setLoading", false);
+	vm.$vux.toast.text("网络错误, 请稍候再试", 'bottom');
 });
 
-/* eslint-disable no-new */
 const vm = new Vue({
 	el: '#app',
 	router,

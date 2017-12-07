@@ -35,7 +35,7 @@
 			<x-input type="text" v-model="remark" title="备注信息" placeholder="请输入"
 				:show-clear="true" placeholder-align="right" text-align="right" ></x-input>
 			<cell :title="type+'照片'" primary="content" :value="imgPath ? null :'无'">
-				<img v-if="imgPath" style="width:7em;height:7em" :src="$store.state.readPhotoUrl+imgPath"/>
+				<img v-if="imgPath" style="width:7em;height:7em" :src="photoUrl"/>
 			</cell>
 		</group>
 	</div>
@@ -81,6 +81,14 @@ export default {
 			imgPath : null //盘点/处理 照片的路径
 		}
 	},
+	computed : {
+		photoUrl () {
+			if(!this.photoPath) {
+				return null;
+			}
+			return this.$store.state.readPhotoUrl + this.imgPath;
+		}
+	},
 	/**
 	 * 组件内的导航前置守卫
 	 */
@@ -90,7 +98,7 @@ export default {
 		// 因为当守卫执行前，组件实例还没被创建
 		// 可以传一个回调给next来访问组件实例
 		next(vm => {
-			if(from.path === "/search") {
+			if(from.name === "search") {
 				vm.type = "处理";
 				//查询资产数据(根据查询参数)
 				vm.$http.get(vm.$store.state.apiUrl + "zichan/list",{params:{
@@ -134,8 +142,19 @@ export default {
 		 * 上传盘点/处理照片
 		 */
 		uploadPic () {
-			//TODO 调用文件选择器 文件上传
-			
+			if(!("plus" in window)) {
+				console.warn("请使用真机或模拟器进行调试!");
+				return;
+			}
+			var _this = this;
+			//从系统相册选择文件(照片或视频)
+			//参数分别是 成功回调(必选),失败回调,配置参数
+			void plus.gallery.pick( (filePath) => {
+				//选择的图片或视频文件路径
+				_this.uploadPic(filePath);
+			}, (err) => {
+				_this.$vux.alert.show({ title: "提示",content: "图片选择出错:"+err.toString() });
+			}, {filter:"image" /*仅选择图片文件*/} );
 		},
 		/**
 		 * 拍照
@@ -152,18 +171,7 @@ export default {
 			cmr.captureImage( (capturedFile) => {
 				//capturedFile - 保存的文件路径
 				// 上传文件
-				var upload = plus.uploader.createUpload(
-					_this.$store.state.apiUrl + "pd/uploadPhoto",
-					{method:"POST"},
-					function(response,status){ //上传完成
-						//响应:response.responseText
-						//TODO 在页面添加图片预览
-					}
-				);
-				upload.addData("zcUuid", _this.zcList[_this.selectIndex].uuid);
-				upload.addFile(capturedFile, {});
-				upload.start(); //开始执行上传
-
+				_this.uploadPic(capturedFile);
 			}, (err) => {
 				_this.$vux.alert.show({ title: "提示",content: "拍照出错:"+err.toString() });
 			}, {filename:'_doc/camera/',index:1} );
@@ -205,6 +213,24 @@ export default {
 				_this.remark = null;
 				_this.imgPath = null;
 			}, 300);
+		},
+		/**
+		 * 上传图片
+		 * @argument picPath 图片所在路径
+		 */
+		uploadPic (picPath) {
+			var upload = plus.uploader.createUpload(
+				this.$store.state.apiUrl + "pd/uploadPhoto",
+				{method:"POST"},
+				((response,status) => { //上传完成
+					var result = JSON.parse(response.responseText);
+					// 在页面添加图片预览
+					this.imgPath = result.data;
+				}).bind(this)
+			);
+			upload.addData("zcUuid", this.zcList[this.selectIndex].uuid);
+			upload.addFile(picPath, {});
+			upload.start(); //开始执行上传
 		}
 	}
 }
