@@ -56,7 +56,7 @@ export default {
 		 * 确定
 		 */
 		confirm () {
-			this.$router.push("/zc/receive/confirm");
+			this.$router.push("/zc/receive/count");
 		}
 	}
 }

@@ -31,7 +31,6 @@ var successCallback = function(type, code, file){
 	//type - 码的类型 - 对应plus.barcode当中的常量, 二维码是plus.barcode.QR
 	//code - 扫描获取到的内容
 	//file - 捕捉到的图片保存的路径(可以在开始扫描时传参指定是否保存文件)
-	alert(code);
 	var content = null;
 	try {
 		content = JSON.parse(code.replace(/\\/g,""));

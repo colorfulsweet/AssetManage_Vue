@@ -59,7 +59,7 @@ export default {
 	methods : {
 		backToIndex () {
 			//返回首页
-			this.$router.replace("/index");
+			this.$router.replace("/index/main");
 		}
 	}
 }

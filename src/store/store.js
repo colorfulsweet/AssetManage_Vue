@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 const port = 9000;
 //const host = "192.168.1.102";
-const host = "127.0.0.1";
+const host = "192.168.31.137";
 const apiUrl = `http://${host}:${port}/`;
 const store = new Vuex.Store({
 	state: {

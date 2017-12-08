@@ -50,9 +50,9 @@ export default {
 					case "1" : 
 						if(currentUser.roles.findIndex((item) => {return item==='MK';}) !== -1 
 							&& _this.from !== 'noQrcode') {
-							//TODO 跳转到tip
+							_this.$router.push("/zc/receive/tip");
 						} else {
-							this.$vux.alert.show({
+							_this.$vux.alert.show({
 								title: '提示',
 								content: '操作成功',
 								onHide() {
@@ -62,7 +62,7 @@ export default {
 						}
 						break;
 					case "2" : 
-						this.$router.push("/zc/receive/count");
+						_this.$router.push("/zc/receive/count");
 						break;
 					case "3" : //TODO 回收
 					}

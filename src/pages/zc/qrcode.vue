@@ -36,7 +36,7 @@ export default {
 					operateId: this.operateId, 
 					r: Math.random() //添加随机数防止缓存
 				}}).then(function(response){
-					if(res.msg !== "finished") {
+					if(response.data.msg !== "finished") {
 						setTimeout(() => {
 							_this.checkFinished();
 						}, 3000);

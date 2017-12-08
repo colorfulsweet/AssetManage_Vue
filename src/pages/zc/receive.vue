@@ -16,7 +16,7 @@
 			<td>{{item.zcid}}</td>
 			<td>{{item.mingch}}</td>
 			<td>{{item.lbie}}</td>
-			<td><div class="img-preview" :style="item.previewStyle"></div></td>
+			<td><div v-if="item.hasPic" class="img-preview" :style="item.previewStyle"></div></td>
 		</tr>
 	</tbody>
 </x-table>
@@ -33,6 +33,18 @@
 </template>
 <script>
 import { XTable,XButton,Group,XInput } from 'vux'
+import NativePicHandle from "../native/takephoto"
+
+var updatePreview = function(response,status) {
+	var picPath = JSON.parse(response.responseText).data;
+	var picUrl = this.$store.state.apiUrl + "lz/readPhoto?photoPath="+picPath;
+	this.zcList[this.selectItemIndex].previewStyle = {
+		"background-image" : `url(${picUrl})`,
+		"width" : "7em",
+		"height" : "7em"
+	}
+	this.zcList[this.selectItemIndex].hasPic = true; //在该数据上标识已有图片
+};
 
 export default {
 	name : "receive",
@@ -82,15 +94,25 @@ export default {
 		 * 拍照 按钮点击事件
 		 */
 		takePhoto () {
-			//TODO 拍照
-
+			NativePicHandle.takePhoto({
+				uploadUrl : this.$store.state.apiUrl + "lz/uploadPhoto",
+				params : {operateId : this.operateId, zcId : this.zcList[this.selectItemIndex].uuid},
+				successCb : updatePreview,
+				context : this,
+				fileKey : "uploadPhoto"
+			});
 		},
 		/**
 		 * 上传图片 按钮点击事件
 		 */
 		uploadPic () {
-			//TODO 上传图片
-
+			NativePicHandle.selectPic({
+				uploadUrl : this.$store.state.apiUrl + "lz/uploadPhoto",
+				params : {operateId : this.operateId, zcId : this.zcList[this.selectItemIndex].uuid},
+				successCb : updatePreview,
+				context : this,
+				fileKey : "uploadPhoto"
+			});
 		},
 		/**
 		 * "完成"按钮点击事件
@@ -114,7 +136,7 @@ export default {
 					targetTel : this.targetTel
 				}).then(function(response){
 					if(!response.data.status) {
-						this.$vux.toast.text(res.msg, 'middle');
+						this.$vux.toast.text(response.data.msg, 'middle');
 						return;
 					}
 					_this.$router.push("/zc/receive/confirm");
@@ -128,15 +150,6 @@ export default {
 				break;
 			}
 
-		},
-		updatePreview (picPath) {
-			var picUrl = this.$store.state.apiUrl + "lz/readPhoto?photoPath="+picPath;
-			this.zcList[this.selectItemIndex].previewStyle = {
-				"background-image" : `url(${picUrl})`,
-				"width" : "7em",
-				"height" : "7em"
-			}
-			this.zcList[this.selectItemIndex].hasPic = true; //在该数据上标识已有图片
 		}
 	}
 }

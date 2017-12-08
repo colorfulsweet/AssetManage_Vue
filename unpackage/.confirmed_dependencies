@@ -16,7 +16,14 @@
       "dist/static/js/manifest.aeadfaab4a94cc74c9a8.js.map",
       "dist/static/js/vendor.ea6263924571255d2800.js",
       "dist/static/js/vendor.ea6263924571255d2800.js.map",
-      "dist/app.12b25bf49af9bfdfeadfcccdda84dd8c.css"
+      "dist/app.12b25bf49af9bfdfeadfcccdda84dd8c.css",
+      "dist/static/js/manifest.ef6684c8008d80cdf34c.js",
+      "dist/static/js/manifest.e672a84dc90c85b6ce64.js",
+      "dist/static/js/manifest.08118fa2a4f6a80b5467.js",
+      "dist/static/js/manifest.4970ee047d6b5db9f93f.js",
+      "dist/static/js/app.bc67e14940c3c7f1c596.js",
+      "dist/static/js/vendor.cb35587d6701d78c4b41.js",
+      "dist/static/js/manifest.b54b758cd2e571feab2c.js"
     ],
     "refer": []
   }
