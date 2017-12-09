@@ -1,18 +1,17 @@
-/**
- * ==========================================
- * 拍照/相册选择文件 上传相关工具方法
- * ==========================================
- */
+//
+// ==========================================
+// 拍照/相册选择文件 上传相关工具方法
+// ==========================================
+//
 
 /**
  * 执行图片上传
  */
-const uploadPic = function(config, picPath) {
+const excuteUpload = function(config, picPath) {
 	//添加token参数
 	config.params["_token"] = config.context.$store.state.loginInfo.token;
-
 	var upload = plus.uploader.createUpload(config.uploadUrl,{method:"POST"},
-		(response,status) => { //上传完成
+		(response,status) => { //上传完成后的回调函数(成功和失败都会执行)
 			config.successCb.call(config.context, response, status);
 		}
 	);
@@ -21,6 +20,27 @@ const uploadPic = function(config, picPath) {
 	}
 	var addResult = upload.addFile(picPath, {key:config.fileKey});
 	upload.start(); //开始执行上传
+}
+
+const uploadPic = function(config, picPath) {
+	//文件全名
+	var fileFullName = picPath.substring(picPath.lastIndexOf("/")+1, picPath.length);
+	//文件类型(扩展名 带.)
+	var ext = fileFullName.substring(fileFullName.lastIndexOf("."), fileFullName.length);
+	var fileName = fileFullName.substring(0, fileFullName.lastIndexOf("."));
+	//TODO 文件压缩
+	plus.zip.compressImage( {
+		src : picPath, //源图片的路径
+		dst : `_doc/camera/${fileName}_compressed${ext}`, //目标文件的路径
+		overwrite : true, //目标路径如果存在同名文件是否覆盖
+		quality : 40, //压缩之后的图片质量(默认50)
+		height : "720px" //压缩之后的图片高度(若未设置宽度则按照比例缩放)
+	}, (event) => { //操作成功的回调函数
+		excuteUpload(config, event.target); //压缩后保存的文件路径
+	}, (err) => { //如果不幸压缩失败,则还是上传原文件
+		console.error(err.message);
+		excuteUpload(config, picPath);
+	});
 };
 //默认的配置
 const defaultConfig = {
