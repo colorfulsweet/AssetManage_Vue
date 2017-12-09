@@ -4,6 +4,7 @@
 // ==========================================
 //
 
+const packageJson = require('../../../package.json');
 var readyToExit = false;
 /**
  * 安卓物理按键"返回"执行的回调函数
@@ -26,6 +27,11 @@ function backBtnCallback() {
 	}
 }
 
+function checkUpdate () {
+	// this.$http.post(this.$store.state.apiUrl+"");
+	//TODO 根据当前版本号检验是否需要升级
+}
+
 module.exports= {
 	run (context) {
 		if(!("plus" in window)) {
@@ -33,5 +39,6 @@ module.exports= {
 		}
 		// 添加物理按键"返回"执行的操作
 		plus.key.addEventListener( "backbutton", backBtnCallback.bind(context), false );
+		checkUpdate.call(context);
 	}
 }
