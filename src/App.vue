@@ -16,12 +16,17 @@ import { Actionsheet,XHeader } from 'vux'
 import Loading from "./components/loading";
 import UserInfo from "./components/user_info";
 
+import Init from './pages/native/init'
+
 export default {
 	name: 'app',
 	data () {
 		return {
 			mainViewTransition: 'slide-left'
 		};
+	},
+	created () {
+		Init.run(this); //程序初始化需要执行的操作(相关物理按键的事件绑定)
 	},
 	components : {
 		Actionsheet, XHeader, Loading, UserInfo

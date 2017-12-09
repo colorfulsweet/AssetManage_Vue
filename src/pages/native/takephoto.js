@@ -28,7 +28,7 @@ const uploadPic = function(config, picPath) {
 	//文件类型(扩展名 带.)
 	var ext = fileFullName.substring(fileFullName.lastIndexOf("."), fileFullName.length);
 	var fileName = fileFullName.substring(0, fileFullName.lastIndexOf("."));
-	//TODO 文件压缩
+	// 图片压缩
 	plus.zip.compressImage( {
 		src : picPath, //源图片的路径
 		dst : `_doc/camera/${fileName}_compressed${ext}`, //目标文件的路径

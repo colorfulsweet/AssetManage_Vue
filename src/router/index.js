@@ -25,6 +25,7 @@ const ZcShow = () => import(/* webpackChunkName: "zichan" */"../pages/zc/show")
 const MyAsset = () => import(/* webpackChunkName: "aboutMe" */"../pages/my/my_asset")
 const MyRecord = () => import(/* webpackChunkName: "aboutMe" */"../pages/my/my_record")
 const MyInfo = () => import(/* webpackChunkName: "aboutMe" */"../pages/my/my_info")
+const MyMessage = () => import(/* webpackChunkName: "aboutMe" */"../pages/my/my_message")
 const ChangePwd = () => import(/* webpackChunkName: "aboutMe" */"../pages/my/change_pwd")
 
 const QrcodeScan = () => import(/* webpackChunkName: "native" */"../pages/native/qrcode_scan")
@@ -52,6 +53,7 @@ const router = new Router({
 		{path: "/my/my_asset",component: MyAsset},
 		{path: "/my/my_record",component: MyRecord},
 		{path: "/my/my_info",component: MyInfo},
+		{path: "/my/my_message",component: MyMessage},
 		{path: "/my/change_pwd",component: ChangePwd},
 		{path: "/native/qrcode_scan",component: QrcodeScan}
 	]
