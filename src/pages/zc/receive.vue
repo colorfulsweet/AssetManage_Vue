@@ -33,8 +33,11 @@
 </template>
 <script>
 import { XTable,XButton,Group,XInput } from 'vux'
-import NativePicHandle from "../native/takephoto"
-
+// import NativePicHandle from "../native/takephoto"
+var NativePicHandle = null;
+import(/* webpackChunkName: "native" */ "../native/takephoto").then(moduleObj => {
+	NativePicHandle = moduleObj;
+});
 var updatePreview = function(response,status) {
 	var picPath = JSON.parse(response.responseText).data;
 	var picUrl = this.$store.state.apiUrl + "lz/readPhoto?photoPath="+picPath;

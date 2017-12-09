@@ -26,7 +26,7 @@ function backBtnCallback() {
 	}
 }
 
-export default {
+module.exports= {
 	run (context) {
 		if(!("plus" in window)) {
 			return;

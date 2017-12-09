@@ -224,7 +224,7 @@
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
 					/*高分屏启动图片，分辨率：480x762*/
 					/*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "",
+					"xxhdpi": "C:/Users/夏夜梦星辰/Desktop/Hbuilder boot images/Hbuilder/1080_1920.png",
 					"hdpi": "C:/Users/夏夜梦星辰/Desktop/Hbuilder boot images/Hbuilder/480_800.png",
 					"xhdpi": "C:/Users/夏夜梦星辰/Desktop/Hbuilder boot images/Hbuilder/720_1280.png"
 				}

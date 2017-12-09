@@ -63,7 +63,12 @@
 <script>
 import { XTable,XButton,XDialog,Group, Cell,XInput,Selector,
 		Flexbox, FlexboxItem,TransferDomDirective as TransferDom } from 'vux'
-import NativePicHandle from "../native/takephoto"
+// import NativePicHandle from "../native/takephoto"
+
+var NativePicHandle = null;
+import(/* webpackChunkName: "native" */ "../native/takephoto").then(moduleObj => {
+	NativePicHandle = moduleObj;
+});
 
 const pdStatuses = ["已盘点", "未盘点"];
 //上传成功的回调函数

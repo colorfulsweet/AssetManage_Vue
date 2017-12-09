@@ -48,7 +48,7 @@ const defaultConfig = {
 	params : {},
 	successCb : function(){},
 	errorCb : function(err, operation="操作"){
-		this.$vux.alert.show({ title: "提示",content: `${operation}出错:${err.toString()}`});
+		this.$vux.toast.text(`${operation}已取消`, 'middle');
 	},
 	context : null,
 	fileKey: "uploadFile"
@@ -111,4 +111,4 @@ const NativePicHandle = {
 		}, {filename:'_doc/camera/',index:1} );
 	}
 }
-export default NativePicHandle
+module.exports = NativePicHandle
