@@ -54,14 +54,14 @@ export default {
 			{params:{r : Math.random()}})
 		.then((response) => {
 			var msgs = [];
-			var timestampNum = parseInt(response);
+			var timestampNum = parseInt(response.data);
 			var now = new Date(timestampNum);
-			// if(now.getMonth() + 1 == 6 && now.getDate() >= 10) {
+			if(now.getMonth() + 1 == 6 && now.getDate() >= 10) {
 				msgs.push("请于<b>6月30日</b>前执行资产盘点");
 				_this.menus[3].badgeNum ++;
-			// }
+			}
 			if(now.getMonth() + 1 == 12 && now.getDate() >= 10) {
-				msgs.push("请于12月31日前执行资产盘点");
+				msgs.push("请于<b>12月31日</b>前执行资产盘点");
 				_this.menus[3].badgeNum ++;
 			}
 			localStorage.setItem("messages", JSON.stringify(msgs));

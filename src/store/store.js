@@ -7,7 +7,9 @@ const port = 9000;
 //阿里云主机
 const host = "47.96.30.143";
 //局域网主机
-//const host = "192.168.31.137";
+// const host = "192.168.31.137";
+//本地
+// const host = "127.0.0.1";
 const apiUrl = `http://${host}:${port}/`;
 const store = new Vuex.Store({
 	state: {

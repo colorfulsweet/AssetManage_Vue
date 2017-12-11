@@ -203,10 +203,10 @@
 						/*4.7 英寸设备(iPhone6)启动图片，分辨率：750x1334*/
 						/*5.5 英寸设备(iPhone6 Plus)启动图片，分辨率：1242x2208*/
 						"retina55l": "",
-						"retina55": "C:/Users/夏夜梦星辰/Desktop/Hbuilder boot images/Hbuilder/1242_2208.png",
-						"retina47": "C:/Users/夏夜梦星辰/Desktop/Hbuilder boot images/Hbuilder/750_1334.png",
-						"retina40": "C:/Users/夏夜梦星辰/Desktop/Hbuilder boot images/Hbuilder/640_1136.png",
-						"retina35": "C:/Users/夏夜梦星辰/Desktop/Hbuilder boot images/Hbuilder/640_960.png"
+						"retina55": "/Users/sookie/Downloads/Hbuilder/1242_2208.png",
+						"retina47": "/Users/sookie/Downloads/Hbuilder/750_1334.png",
+						"retina40": "/Users/sookie/Downloads/Hbuilder/640_1136.png",
+						"retina35": "/Users/sookie/Downloads/Hbuilder/640_960.png"
 					},
 					"ipad": {
 						"portrait": "", /*iPad竖屏启动图片，分辨率：768x1004*/
@@ -224,9 +224,9 @@
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
 					/*高分屏启动图片，分辨率：480x762*/
 					/*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "C:/Users/夏夜梦星辰/Desktop/Hbuilder boot images/Hbuilder/1080_1920.png",
-					"hdpi": "C:/Users/夏夜梦星辰/Desktop/Hbuilder boot images/Hbuilder/480_800.png",
-					"xhdpi": "C:/Users/夏夜梦星辰/Desktop/Hbuilder boot images/Hbuilder/720_1280.png"
+					"xxhdpi": "/Users/sookie/Downloads/Hbuilder/1080_1920.png",
+					"hdpi": "/Users/sookie/Downloads/Hbuilder/480_800.png",
+					"xhdpi": "/Users/sookie/Downloads/Hbuilder/720_1280.png"
 				}
 			},
 			"plugins": {
@@ -1391,19 +1391,11 @@
 				"resources": [
 					"dist/static/fonts/fontawesome-webfont.c4668ed.ttf",
 					"dist/static/js/app.9254096d0e9f88e4123d.js",
-					"dist/static/js/app.9254096d0e9f88e4123d.js.map",
 					"dist/static/js/manifest.aeadfaab4a94cc74c9a8.js",
-					"dist/static/js/manifest.aeadfaab4a94cc74c9a8.js.map",
 					"dist/static/js/vendor.ea6263924571255d2800.js",
-					"dist/static/js/vendor.ea6263924571255d2800.js.map",
 					"dist/app.12b25bf49af9bfdfeadfcccdda84dd8c.css",
-					"dist/static/js/manifest.ef6684c8008d80cdf34c.js",
-					"dist/static/js/manifest.e672a84dc90c85b6ce64.js",
-					"dist/static/js/manifest.08118fa2a4f6a80b5467.js",
-					"dist/static/js/manifest.4970ee047d6b5db9f93f.js",
 					"dist/static/js/app.bc67e14940c3c7f1c596.js",
-					"dist/static/js/vendor.cb35587d6701d78c4b41.js",
-					"dist/static/js/manifest.b54b758cd2e571feab2c.js"
+					"dist/static/js/vendor.cb35587d6701d78c4b41.js"
 				],
 				"refer": [],
 				"priority": 0

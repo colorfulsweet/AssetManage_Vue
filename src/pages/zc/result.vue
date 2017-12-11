@@ -36,7 +36,7 @@
 <x-dialog hide-on-blur :show.sync="showDialog" class="detail-dialog" @on-hide="dialogHideCallback">
 	<div class="detail-panel">
 		<group>
-			<cell title="资产名称" primary="content" :value="selectIndex?zcList[selectIndex].mingch:null"></cell>
+			<cell title="资产名称" primary="content" :value="selectIndex!==null?zcList[selectIndex].mingch:null"></cell>
 			<cell-form-preview :list="datailList"></cell-form-preview>
 			<cell title="相关照片" primary="content" :value="!imageList || !imageList.length ? '无' : null">
 				<img v-for="(imgPath,index) in imageList" v-bind:key="index" width="100" class="previewer-img"
@@ -206,6 +206,7 @@ export default {
 		dialogHideCallback () {
 			if(this.$refs.previewer && this.previewerIsOpen) {
 				this.$refs.previewer.close();
+				this.imageList = [];
 			}
 		}
 	}

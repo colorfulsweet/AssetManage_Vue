@@ -16,10 +16,6 @@ import { Actionsheet,XHeader } from 'vux'
 import Loading from "./components/loading";
 import UserInfo from "./components/user_info";
 
-// import Init from './pages/native/init'
-import(/* webpackChunkName: "native" */ './pages/native/init').then(Init => {
-	Init.run(); //程序初始化需要执行的操作(相关物理按键的事件绑定)
-});
 
 export default {
 	name: 'app',
@@ -27,6 +23,12 @@ export default {
 		return {
 			mainViewTransition: 'slide-left'
 		};
+	},
+	created () {
+		var _this = this;
+		import(/* webpackChunkName: "native" */ './pages/native/init').then(Init => {
+			Init.run(_this); //程序初始化需要执行的操作(相关物理按键的事件绑定)
+		});
 	},
 	components : {
 		Actionsheet, XHeader, Loading, UserInfo

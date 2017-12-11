@@ -32,13 +32,21 @@ function checkUpdate () {
 	//TODO 根据当前版本号检验是否需要升级
 }
 
+function init (context) {
+	// 添加物理按键"返回"执行的操作
+	plus.key.addEventListener( "backbutton", backBtnCallback.bind(context), false );
+	checkUpdate.call(context);
+}
+
 module.exports= {
 	run (context) {
 		if(!("plus" in window)) {
+			document.addEventListener('plusready',function(){
+				init(context);
+			},false);
 			return;
+		} else {
+			init(context);
 		}
-		// 添加物理按键"返回"执行的操作
-		plus.key.addEventListener( "backbutton", backBtnCallback.bind(context), false );
-		checkUpdate.call(context);
 	}
 }

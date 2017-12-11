@@ -139,7 +139,7 @@ export default {
 					targetTel : this.targetTel
 				}).then(function(response){
 					if(!response.data.status) {
-						this.$vux.toast.text(response.data.msg, 'middle');
+						_this.$vux.toast.text(response.data.msg, 'middle');
 						return;
 					}
 					_this.$router.push("/zc/receive/confirm");
