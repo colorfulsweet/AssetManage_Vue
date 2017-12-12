@@ -48,7 +48,7 @@ const defaultConfig = {
 	params : {},
 	successCb : function(){},
 	errorCb : function(err, operation="操作"){
-		this.$vux.toast.text(`${operation}已取消`, 'middle');
+		this.$vux.toast.text(`${operation}已取消`, 'top');
 	},
 	context : null,
 	fileKey: "uploadFile"

@@ -65,6 +65,7 @@ export default {
 	name : "result",
 	data () {
 		return {
+			operate : localStorage.getItem("operate"),
 			zcList : [],
 			datailList :[],
 			selectIndex : null, //选中行的索引
@@ -96,12 +97,30 @@ export default {
 	created () {
 		this.$store.commit("setHeaderConf",{hasbackbtn : true,title : "查询结果"});
 		var _this = this;
-		//查询资产数据
-		this.$http.get(this.$store.state.apiUrl + "zichan/list",{params:{
-			zcID : this.$route.query.zcID,
+		const params = {
+			zcid : this.$route.query.zcid,
 			mingch : this.$route.query.name,
 			lbie : this.$route.query.type
-		}}).then((response) => {
+		};
+		switch(this.operate) {
+		case "1" : //出库
+			if(this.$store.state.loginInfo.userData.roles.indexOf("MK") !== -1) {
+				//如果当前用户角色是MK, 那么查询所有属于MA名下的数据(也就是未出库的)
+				params.role = "MA";
+			} else if (this.$store.state.loginInfo.userData.roles.indexOf("MA") !== -1){
+				//如果当前用户角色是MA, 那么只查询自己名下的资产数据
+				params.bgrId = this.$store.state.loginInfo.userData.uuid;
+			}
+			break;
+		case "2" : //流转
+			//查询所有属于MK名下的数据
+			params.role = "MK";
+			break;
+		case "3" : //TODO 回收
+		}
+		//查询资产数据
+		this.$http.get(this.$store.state.apiUrl + "zichan/list",{params})
+		.then((response) => {
 			_this.zcList = response.data;
 			if(!_this.zcList.length) {
 				_this.showTip = true;

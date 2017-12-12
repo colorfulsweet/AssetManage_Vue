@@ -26,6 +26,7 @@
 	</tbody>
 </x-table>
 </div>
+<divider v-if="showTip">{{tip}}</divider>
 <!-- 盘点/处理 详细信息dialog -->
 <x-dialog hide-on-blur :show.sync="showDialog" v-on:on-hide="clearPd" class="detail-dialog">
 	<div class="detail-panel">
@@ -61,7 +62,7 @@
 </div>
 </template>
 <script>
-import { XTable,XButton,XDialog,Group, Cell,XInput,Selector,
+import { XTable,XButton,XDialog,Group, Cell,XInput,Selector,Divider,
 		Flexbox, FlexboxItem,TransferDomDirective as TransferDom } from 'vux'
 // import NativePicHandle from "../native/takephoto"
 
@@ -91,7 +92,9 @@ export default {
 			statuses : ["正常", "损坏", "丢失", "其他"],
 			status : null, //盘点/处理 状态
 			remark : null, //备注信息
-			imgPath : null //盘点/处理 照片的路径
+			imgPath : null, //盘点/处理 照片的路径
+			showTip : false,
+			tip : ""
 		}
 	},
 	/**
@@ -112,6 +115,10 @@ export default {
 					lbie : vm.$route.query.type
 				}}).then((response) => {
 					vm.zcList = response.data;
+					if(!vm.zcList.length) {
+						vm.tip = "没有符合条件的数据";
+						vm.showTip = true;
+					}
 				});
 			} else {
 				vm.type = "盘点";
@@ -124,13 +131,17 @@ export default {
 						//这里只显示已盘点和未盘点的
 						return pdStatuses.indexOf(item.pdzt) >= 0;
 					});
+					if(!vm.zcList.length) {
+						vm.tip = "当前用户名下无资产";
+						vm.showTip = true;
+					}
 				});
 			}
 			vm.$store.commit("setHeaderConf",{hasbackbtn : true,title : `资产${vm.type}`});
 		});
 	},
 	directives: { TransferDom },
-	components : { XTable,XButton,XDialog,Group,Cell,XInput,Selector,Flexbox,FlexboxItem },
+	components : { XTable,XButton,XDialog,Group,Cell,XInput,Selector,Flexbox,FlexboxItem,Divider },
 	methods : {
 		/**
 		 * 行点击事件-显示dialog

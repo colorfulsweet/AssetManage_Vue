@@ -97,6 +97,10 @@ export default {
 		 * 拍照 按钮点击事件
 		 */
 		takePhoto () {
+			if(this.selectItemIndex === null) {
+				this.$vux.toast.text('请选择拍照的资产信息', 'bottom');
+				return;
+			}
 			NativePicHandle.takePhoto({
 				uploadUrl : this.$store.state.apiUrl + "lz/uploadPhoto",
 				params : {operateId : this.operateId, zcId : this.zcList[this.selectItemIndex].uuid},
@@ -109,6 +113,10 @@ export default {
 		 * 上传图片 按钮点击事件
 		 */
 		uploadPic () {
+			if(this.selectItemIndex === null) {
+				this.$vux.toast.text('请选择上传照片的资产信息', 'bottom');
+				return;
+			}
 			NativePicHandle.selectPic({
 				uploadUrl : this.$store.state.apiUrl + "lz/uploadPhoto",
 				params : {operateId : this.operateId, zcId : this.zcList[this.selectItemIndex].uuid},

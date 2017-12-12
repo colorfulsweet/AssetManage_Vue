@@ -19,6 +19,7 @@
 		</tr>
 	</tbody>
 </x-table>
+<divider v-if="showTip">当前用户名下无资产</divider>
 <x-dialog hide-on-blur :show.sync="showDialog" class="detail-dialog" @on-hide="dialogHideCallback">
 	<div class="detail-panel">
 		<group>
@@ -36,7 +37,7 @@
 </div>
 </template>
 <script>
-import { XTable,XDialog,CellFormPreview, Group, Cell,Previewer,TransferDomDirective as TransferDom } from 'vux'
+import { XTable,XDialog,CellFormPreview, Group, Cell,Previewer,Divider,TransferDomDirective as TransferDom } from 'vux'
 var datailColumns = {ggxh:"规格",shul:"数量",ppcj:"厂家",gysDcxm:"供应商"};
 
 export default {
@@ -59,7 +60,8 @@ export default {
 				return {x: rect.left, y: rect.top + pageYScroll, w: rect.width}
 				}
 			},
-			previewerIsOpen : false //图片放大预览是否打开
+			previewerIsOpen : false, //图片放大预览是否打开
+			showTip : false
 		};
 	},
 	computed : {
@@ -78,10 +80,13 @@ export default {
 			bgrId : this.$store.state.loginInfo.userData.uuid
 		}}).then((response) => {
 			_this.zcList = response.data;
+			if(!_this.zcList.length) {
+				_this.showTip = true;
+			}
 		});
     },
     directives: { TransferDom },
-    components : { XTable,XDialog,CellFormPreview,Group,Cell,Previewer },
+    components : { XTable,XDialog,CellFormPreview,Group,Cell,Previewer,Divider },
     methods : {
         /**
          * 表格行点击事件函数

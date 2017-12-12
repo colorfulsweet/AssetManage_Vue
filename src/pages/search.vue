@@ -2,7 +2,7 @@
 <template>
 <div>
 	<group title="资产查询检索">
-		<x-input type="text" v-model="zcID" title="编码" placeholder="请输入"
+		<x-input type="text" v-model="zcid" title="编码" placeholder="请输入"
 			:show-clear="true" placeholder-align="right" text-align="right" :max="9"></x-input>
 		<div class="selector-clear" @click="clearSelector('name')" v-show="name">
 			<i class="weui-icon weui_icon_clear weui-icon-clear" ></i>
@@ -25,7 +25,7 @@ export default {
 	data () {
 		return {
 			operate : 1,
-			zcID : null,
+			zcid : null,
 			name : null,
 			type : null,
 			names : ["办公家具", "打印机", "摄像机", "投影仪"],
@@ -50,19 +50,21 @@ export default {
 		 * 执行查询
 		 */
 		search() {
-			if(!this.zcID && !this.name && !this.type) {
+			if(!this.zcid && !this.name && !this.type) {
 				this.$vux.toast.text('请输入查询条件', 'middle');
 				return;
 			}
 			//查询参数
-			var query = `zcID=${this.zcID?this.zcID:''}&` +
-					`name=${this.name?this.name:''}&` +
-					`type=${this.type?this.type:''}`;
+			const query = {
+				zcid : this.zcid ? this.zcid : '',
+				name : this.name ? this.name : '',
+				type : this.type ? this.type : ''
+			};
 			if(this.$route.query.target) {
 				//传递查询参数的目标页面路由地址, 如果没有就默认到result
-				this.$router.push(`${this.$route.query.target}?` + query);
+				this.$router.push({path:this.$route.query.target, query});
 			} else {
-				this.$router.push(`/search/result?` + query);
+				this.$router.push({path:"/search/result", query});
 			}
 		},
 		/**

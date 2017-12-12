@@ -20,7 +20,7 @@
 	</tbody>
 </x-table>
 <div v-on:click="showMore=!showMore">
-    <load-more v-show="lzList.length>2" :show-loading="false" :tip="showMore ? '收起' : '更多'" ></load-more>
+    <load-more v-show="lzList.length>2" :show-loading="false" :tip="showMore ? '▲收起▲' : '▼更多▼'" ></load-more>
 </div>
 </div>
 </template>

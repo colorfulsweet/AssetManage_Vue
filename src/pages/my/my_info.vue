@@ -35,12 +35,9 @@ export default {
 		};
     },
     created () {
-		this.$store.commit("setHeaderConf",
-			{
-				hasbackbtn : true,
-				title : "我的信息"
-			});
-		this.currentUser = this.$store.state.loginInfo.userData;
+		this.$store.commit("setHeaderConf",{ hasbackbtn : true,title : "我的信息" });
+		// 对象浅拷贝
+		Object.assign(this.currentUser, this.$store.state.loginInfo.userData);
     },
     components : { XInput, Group, XButton, Cell },
     methods : {
@@ -65,6 +62,7 @@ export default {
 					_this.$vux.toast.text(response.data.msg, "middle");
 					//切换到查看状态
 					_this.modify = false;
+					Object.assign(_this.$store.state.loginInfo.userData, _this.currentUser);
 				});
 			} else {
 				//切换到编辑状态
