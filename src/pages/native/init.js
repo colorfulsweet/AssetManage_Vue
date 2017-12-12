@@ -31,14 +31,26 @@ function checkUpdate () {
 	// this.$http.post(this.$store.state.apiUrl+"");
 	//TODO 根据当前版本号检验是否需要升级
 }
+/**
+ * 状态栏相关初始化操作
+ */
+function statusBar () {
+	//如果当前应用采用沉浸式状态栏则返回true，否则返回false。
+	//注意：如果当前系统版本不支持沉浸式状态栏也返回false
+	if(!plus.navigator.isImmersedStatusbar()) {
+		return;
+	}
+	//获取当前系统状态栏高度
+	this.topOffset = plus.navigator.getStatusbarHeight();
+}
 
 function init (context) {
 	// 添加物理按键"返回"执行的操作
 	plus.key.addEventListener( "backbutton", backBtnCallback.bind(context), false );
 	checkUpdate.call(context);
+	statusBar.call(context);
 }
-
-module.exports= {
+module.exports = {
 	run (context) {
 		if(!("plus" in window)) {
 			document.addEventListener('plusready',function(){

@@ -1,12 +1,12 @@
 <template>
-<div id="app">
+<div id="app" :style="{'padding-top':statusBarHeight}">
 	<loading ></loading>
-	<x-header :left-options="{showBack: $store.state.headerConf.hasbackbtn}">
+	<x-header :left-options="{showBack: $store.state.headerConf.hasbackbtn}" :style="{'padding-top':headerPadding}">
 		{{$store.state.headerConf.title}}
 	</x-header>
 	<user-info :realname="$store.state.loginInfo.userData ? $store.state.loginInfo.userData.realname : null"></user-info>
 	<transition :name="mainViewTransition">
-		<router-view class="main-view"/>
+		<router-view class="main-view" :style="{'height':'calc(100vh - 2.9em - '+statusBarHeight+')'}"/>
 	</transition>
 </div>
 </template>
@@ -21,8 +21,17 @@ export default {
 	name: 'app',
 	data () {
 		return {
-			mainViewTransition: 'slide-left'
+			mainViewTransition: 'slide-left',
+			topOffset : 0 //状态栏的高度
 		};
+	},
+	computed : {
+		statusBarHeight () {
+			return this.topOffset + "px";
+		},
+		headerPadding () {
+			return this.topOffset + 3 + "px";
+		}
 	},
 	created () {
 		var _this = this;
@@ -42,8 +51,9 @@ export default {
 	}
 }
 </script>
-<style>
+<style lang="less">
 @import "../static/fonts/font-awesome.min.css";
+
 * {
 	margin : 0;
 	padding : 0;
@@ -56,14 +66,12 @@ html,body{
 }
 #app {
 	position: relative;
-	height:100%;
-}
-.main-view {
-	padding-top:2.9em;
-	position: absolute;
-	width: 100%;
-	height : calc(100vh - 2.9em);
-	transition: all .5s cubic-bezier(.55,0,.1,1);
+	.main-view {
+		padding-top:2.9em;
+		position: absolute;
+		width: 100%;
+		transition: all .5s cubic-bezier(.55,0,.1,1);
+	}
 }
 .slide-left-enter, .slide-right-leave-active {
 	opacity: 0;
@@ -79,6 +87,10 @@ html,body{
 	width:100%;
 	position: fixed !important;
 	z-index:100;
+	.vux-header-left {
+		top : auto !important;
+		bottom : 14px;
+	}
 }
 .vux-header {
 	top:0;

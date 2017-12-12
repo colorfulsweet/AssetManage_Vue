@@ -19,7 +19,7 @@ export default {
 
 <style scope>
 #user-info {
-    position: fixed;
+    position: absolute;
     z-index: 102;
     right: 0.3em;
     height: 2.9em;

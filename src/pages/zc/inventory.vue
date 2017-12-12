@@ -12,7 +12,7 @@
 		</tr>
 	</thead>
 </x-table>
-<div class="table-body-container">
+<div class="table-body-container" id="pd-list">
 <x-table :cell-bordered="false" >
 	<tbody>
 		<tr v-for="(item,index) in zcList" :key="item.uuid" v-on:click="trClick(index)">
@@ -227,7 +227,7 @@ export default {
 .weui-cell__hd {
 	text-align: left;
 }
-.table-body-container {
-	max-height: calc(100vh - 5.4em);
+.table-body-container#pd-list {
+	max-height: calc(100% - 2.5em);
 }
 </style>
