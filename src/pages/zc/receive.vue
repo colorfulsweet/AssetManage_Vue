@@ -39,13 +39,19 @@ import(/* webpackChunkName: "native" */ "../native/takephoto").then(moduleObj =>
 	NativePicHandle = moduleObj;
 });
 var updatePreview = function(response,status) {
-	var picPath = JSON.parse(response.responseText).data;
-	var picUrl = this.$store.state.apiUrl + "lz/readPhoto?photoPath="+picPath;
-	this.zcList[this.selectItemIndex].previewStyle = {
+	var result = JSON.parse(response.responseText);
+	this.$vux.toast.text(result.msg, 'bottom');
+	if(!result.status) {
+		return;
+	}
+	var picUrl = this.$store.state.apiUrl + "lz/readPhoto?photoPath="+result.data;
+	//这个方法主要用于避开 Vue 不能检测属性被添加(删除也不能,需要用delete方法)的限制
+	//直接进行赋值不会触发视图更新
+	this.$set(this.zcList[this.selectItemIndex], "previewStyle", {
 		"background-image" : `url(${picUrl})`,
 		"width" : "7em",
 		"height" : "7em"
-	}
+	});
 	this.zcList[this.selectItemIndex].hasPic = true; //在该数据上标识已有图片
 };
 

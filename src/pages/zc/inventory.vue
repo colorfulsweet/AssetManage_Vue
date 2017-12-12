@@ -31,7 +31,7 @@
 <x-dialog hide-on-blur :show.sync="showDialog" v-on:on-hide="clearPd" class="detail-dialog">
 	<div class="detail-panel">
 		<group>
-			<cell title="资产名称" primary="content" :value="selectIndex?zcList[selectIndex].mingch:null"></cell>
+			<cell title="资产名称" primary="content" :value="selectIndex!==null?zcList[selectIndex].mingch:null"></cell>
 			<selector placeholder="请选择" v-model="status" :title="type+'状态'" direction="rtl" :options="statuses" ></selector>
 			<x-input type="text" v-model="remark" title="备注信息" placeholder="请输入"
 				:show-clear="true" placeholder-align="right" text-align="right" ></x-input>
