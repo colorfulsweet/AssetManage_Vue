@@ -28,6 +28,11 @@ export default {
 				url : "/search?operate=2",
 				roles : ["MK"]
 			},{
+				id : "zcrk",
+				name : "资产入库",
+				url : "/zc/storage",
+				roles : ["MA"]
+			},{
 				id : "zcpd",
 				name : "资产盘点",
 				url : "/zc/inventory",

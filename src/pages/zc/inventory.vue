@@ -12,7 +12,7 @@
 		</tr>
 	</thead>
 </x-table>
-<div class="table-body-container" id="pd-list">
+<div class="table-body-container" >
 <x-table :cell-bordered="false" >
 	<tbody>
 		<tr v-for="(item,index) in zcList" :key="item.uuid" v-on:click="trClick(index)">
@@ -40,7 +40,7 @@
 			</cell>
 		</group>
 	</div>
-	<div class="btn-container">
+	<div class="btn-container" id="pd-list">
 		<flexbox orient="vertical">
 			<flexbox-item>
 			<flexbox>
@@ -219,7 +219,7 @@ export default {
 	}
 }
 </script>
-<style scoped>
+<style>
 .detail-dialog .detail-panel {
 	max-height: calc(70vh);
 	overflow:scroll;

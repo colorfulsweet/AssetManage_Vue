@@ -55,13 +55,13 @@ export default {
 			case "1" : //出库 
 				//当前用户为MA,则跳转到上传照片, 为MK则跳转到清单
 				if(currentUser.roles.findIndex((item)=>{return item === "MA";}) !== -1) {
-					this.$router.push("/zc/receive");
+					this.$router.replace("/zc/receive");
 				} else if(currentUser.roles.findIndex((item)=>{return item === "MK";}) !== -1) {
-					this.$router.push("/zc/receive/show");
+					this.$router.replace("/zc/receive/show");
 				}
 				break;
 			case "2" : //流转
-				this.$router.push("/zc/receive/show");
+				this.$router.replace("/zc/receive/show");
 				break;
 			case "3" : //TODO 回收...
 				break;

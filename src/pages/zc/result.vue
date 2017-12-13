@@ -11,7 +11,7 @@
 		</tr>
 	</thead>
 </x-table>
-<div class="table-body-container" id="search-result">
+<div class="table-body-container" >
 <x-table :cell-bordered="false" >
 	<tbody>
 		<!-- TODO 使用 scroller InlineLoading 组件实现滚动加载 -->
@@ -239,7 +239,7 @@ tr.selected {
 	max-height: calc(70vh);
 	overflow:scroll;
 }
-.table-body-container#search-result {
+.table-body-container {
 	max-height: calc(100% - 7.1em);
 }
 </style>
