@@ -219,7 +219,7 @@ export default {
 	}
 }
 </script>
-<style scope>
+<style scoped>
 .detail-dialog .detail-panel {
 	max-height: calc(70vh);
 	overflow:scroll;

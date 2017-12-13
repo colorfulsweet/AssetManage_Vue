@@ -77,7 +77,7 @@ export default {
 	}
 };
 </script>
-<style scope>
+<style scoped>
 /* 下拉框的清空按钮 */
 .selector-clear { 
 	display: inline-block;

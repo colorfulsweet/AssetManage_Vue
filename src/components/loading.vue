@@ -17,6 +17,6 @@ export default {
 </script>
 
 
-<style scope>
+<style scoped>
 @import "../../static/css/loading.css";
 </style>

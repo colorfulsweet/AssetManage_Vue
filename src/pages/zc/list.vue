@@ -158,7 +158,7 @@ export default {
 	}
 }
 </script>
-<style scope lang="less">
+<style scoped lang="less">
 @import '~vux/src/styles/close.less';
 .vux-table .table_input {
 	width: 3.5em;

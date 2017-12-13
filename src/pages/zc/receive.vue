@@ -172,7 +172,7 @@ export default {
 }
 </script>
 
-<style lang="less" scope>
+<style lang="less" scoped>
 tr.selected {
 	background-color: rgb(238,248,172);
 }

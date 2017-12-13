@@ -231,7 +231,7 @@ export default {
 	}
 }
 </script>
-<style scope>
+<style scoped>
 tr.selected {
 	background-color: rgb(238,248,172);
 }

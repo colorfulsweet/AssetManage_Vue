@@ -3,8 +3,11 @@
 	<loading ></loading>
 	<x-header :left-options="{showBack: $store.state.headerConf.hasbackbtn}" :style="{'padding-top':headerPadding}">
 		{{$store.state.headerConf.title}}
+		<template slot="right" v-if="realname">
+			<i class="fa fa-user" ></i>
+			<span >{{realname}}</span>
+		</template>
 	</x-header>
-	<user-info :realname="$store.state.loginInfo.userData ? $store.state.loginInfo.userData.realname : null"></user-info>
 	<transition :name="mainViewTransition">
 		<router-view class="main-view" :style="{'height':'calc(100vh - 2.9em - '+statusBarHeight+')'}"/>
 	</transition>
@@ -14,8 +17,6 @@
 <script>
 import { Actionsheet,XHeader } from 'vux'
 import Loading from "./components/loading";
-import UserInfo from "./components/user_info";
-
 
 export default {
 	name: 'app',
@@ -26,6 +27,10 @@ export default {
 		};
 	},
 	computed : {
+		realname () { //当前用户的姓名
+			return this.$store.state.loginInfo.userData ? 
+				this.$store.state.loginInfo.userData.realname : null;
+		},
 		statusBarHeight () {
 			return this.topOffset + "px";
 		},
@@ -39,9 +44,7 @@ export default {
 			Init.run(_this); //程序初始化需要执行的操作(相关物理按键的事件绑定)
 		});
 	},
-	components : {
-		Actionsheet, XHeader, Loading, UserInfo
-	},
+	components : { Actionsheet, XHeader, Loading },
 	watch: {
 		'$route' (to, from) {
 			const toDepth = to.path.split('/').length;
@@ -87,9 +90,9 @@ html,body{
 	width:100%;
 	position: fixed !important;
 	z-index:100;
-	.vux-header-left {
+	.vux-header-left,.vux-header-right {
 		top : auto !important;
-		bottom : 14px;
+		bottom : .9em;
 	}
 }
 .vux-header {

@@ -102,7 +102,7 @@ export default {
 	beforeDestroy : destoryScan
 }
 </script>
-<style scope>
+<style scoped>
 #scan-panel {
 	background-color: #111;
 }

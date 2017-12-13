@@ -71,7 +71,7 @@ export default {
 	}
 };
 </script>
-<style scope>
+<style scoped>
 .fa {
 	font-size: 1.3em;
 }
