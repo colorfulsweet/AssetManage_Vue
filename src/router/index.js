@@ -16,6 +16,7 @@ const Result = () => import(/* webpackChunkName: "zichan" */"../pages/zc/result"
 const List = () => import(/* webpackChunkName: "zichan" */"../pages/zc/list")
 const Qrcode = () => import(/* webpackChunkName: "zichan" */"../pages/zc/qrcode")
 const Inventory = () => import(/* webpackChunkName: "zichan" */"../pages/zc/inventory")
+const ZcStorage = () => import(/* webpackChunkName: "zichan" */"../pages/zc/storage")
 const Receive = () => import(/* webpackChunkName: "zichan" */"../pages/zc/receive")
 const Confirm = () => import(/* webpackChunkName: "zichan" */"../pages/zc/confirm")
 const Count = () => import(/* webpackChunkName: "zichan" */"../pages/zc/count")
@@ -45,6 +46,7 @@ const router = new Router({
 		{path: "/zc/list",component: List},
 		{path: "/zc/list/qrcode", component: Qrcode},
 		{path: "/zc/inventory",component: Inventory},
+		{path: "/zc/storage",component: ZcStorage},
 		{path: "/zc/receive",component: Receive},
 		{path: "/zc/receive/confirm",component: Confirm},
 		{path: "/zc/receive/count",component: Count},
