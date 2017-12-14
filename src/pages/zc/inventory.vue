@@ -12,7 +12,7 @@
 		</tr>
 	</thead>
 </x-table>
-<div class="table-body-container" >
+<div class="table-body-container" id="pd-list">
 <x-table :cell-bordered="false" >
 	<tbody>
 		<tr v-for="(item,index) in zcList" :key="item.uuid" v-on:click="trClick(index)">
@@ -40,7 +40,7 @@
 			</cell>
 		</group>
 	</div>
-	<div class="btn-container" id="pd-list">
+	<div class="btn-container" >
 		<flexbox orient="vertical">
 			<flexbox-item>
 			<flexbox>

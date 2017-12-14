@@ -139,6 +139,7 @@ export default {
 				_this.zcList.splice(_this.selectIndex, 1);
 				_this.selectIndex = null;
 				_this.$vux.toast.text(response.data.msg, 'middle');
+				_this.showDialog = false;
 			})
 		},
 		/**

@@ -4,7 +4,6 @@
 // ==========================================
 //
 
-const packageJson = require('../../../package.json');
 var readyToExit = false;
 /**
  * 安卓物理按键"返回"执行的回调函数
@@ -23,7 +22,7 @@ function backBtnCallback() {
 		readyToExit = true;
 		setTimeout(() => { //两次按键在1秒的间隔内, 则退出程序
 			readyToExit = false;
-		}, 1000);
+		}, 2000);
 	}
 }
 

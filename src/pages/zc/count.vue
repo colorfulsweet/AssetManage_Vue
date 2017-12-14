@@ -33,7 +33,7 @@ export default {
 	components : { Group,Cell,CellFormPreview,XButton },
 	created () {
 		this.$store.commit("setHeaderConf",{
-			hasbackbtn : true,
+			hasbackbtn : false,
 			title : `资产${this.$store.state.operateList[this.operate-1]}统计`
 		});
 		localStorage.removeItem("operateId");
@@ -59,7 +59,7 @@ export default {
 	methods : {
 		backToIndex () {
 			//返回首页
-			this.$router.replace("/index/main");
+			this.$router.push("/index/main");
 		}
 	}
 }
