@@ -86,7 +86,7 @@ html,body{
 	-webkit-transform: translate(-30px, 0);
 	transform: translate(-30px, 0);
 }
-.vux-header, .weui-tabbar {
+.vux-header {
 	width:100%;
 	position: fixed !important;
 	z-index:100;
@@ -97,9 +97,6 @@ html,body{
 }
 .vux-header {
 	top:0;
-}
-.weui-tabbar {
-	bottom: 0;
 }
 .btn-container {
 	padding: 1em;

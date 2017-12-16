@@ -7,8 +7,8 @@
 			<x-input title="姓名" v-model="currentUser.realname" :required="true" text-align="right"></x-input>
 			<x-input title="职务" v-model="currentUser.title" text-align="right"></x-input>
 			<!-- mask="999 9999 9999" 可以格式化手机号码, 实际值也是格式化之后的值, 包含空格 -->
-			<x-input title="联系电话" v-model="currentUser.lxdh" is-type="china-mobile" text-align="right"></x-input>
-			<x-input title="电子邮箱" v-model="currentUser.dzyx" is-type="email" text-align="right"></x-input>
+			<x-input title="联系电话" v-model="currentUser.lxdh" ref="lxdh" is-type="china-mobile" text-align="right"></x-input>
+			<x-input title="电子邮箱" v-model="currentUser.dzyx" ref="dzyx" is-type="email" text-align="right"></x-input>
 		</template>
 		<template v-else>
 			<cell title="用户名" :value="currentUser.user"></cell>
@@ -53,6 +53,17 @@ export default {
 				}
 				if(!this.currentUser.realname) {
 					this.$vux.toast.text('姓名不能为空', 'middle');
+					return;
+				}
+				if(!this.$refs.lxdh.valid) {
+					//XInput组件自带的校验
+					this.$vux.toast.text('请输入合法的手机号码', 'middle');
+					this.$refs.lxdh.focus();
+					return;
+				}
+				if(!this.$refs.dzyx.valid) {
+					this.$vux.toast.text('请输入合法的电子邮箱', 'middle');
+					this.$refs.dzyx.focus();
 					return;
 				}
 				var _this = this;

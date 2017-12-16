@@ -1,4 +1,4 @@
-<!-- 资产盘点/处理 页面 -->
+<!-- 资产盘点/处理/维保/维保 页面 -->
 <template>
 <div>
 <x-table :cell-bordered="false" >
@@ -27,7 +27,7 @@
 </x-table>
 </div>
 <divider v-if="showTip">{{tip}}</divider>
-<!-- 盘点/处理 详细信息dialog -->
+<!-- 盘点/处理/维保 详细信息dialog -->
 <x-dialog hide-on-blur :show.sync="showDialog" v-on:on-hide="clearPd" class="detail-dialog">
 	<div class="detail-panel">
 		<group>
@@ -64,7 +64,6 @@
 <script>
 import { XTable,XButton,XDialog,Group, Cell,XInput,Selector,Divider,
 		Flexbox, FlexboxItem,TransferDomDirective as TransferDom } from 'vux'
-// import NativePicHandle from "../native/takephoto"
 
 var NativePicHandle = null;
 import(/* webpackChunkName: "native" */ "../native/takephoto").then(moduleObj => {
@@ -90,9 +89,9 @@ export default {
 			showDialog : false,
 			selectIndex : null,
 			statuses : ["正常", "损坏", "丢失", "其他"],
-			status : null, //盘点/处理 状态
+			status : null, //盘点/处理/维保 状态
 			remark : null, //备注信息
-			imgPath : null, //盘点/处理 照片的路径
+			imgPath : null, //盘点/处理/维保 照片的路径
 			showTip : false,
 			tip : ""
 		}
@@ -106,13 +105,14 @@ export default {
 		// 因为当守卫执行前，组件实例还没被创建
 		// 可以传一个回调给next来访问组件实例
 		next(vm => {
-			if(from.name === "search") {
-				vm.type = "处理";
+			if(from.name === "search") {//可能是处理或者维保
+				vm.type = vm.$store.state.operateList[localStorage.getItem("operate")-1];
 				//查询资产数据(根据查询参数)
 				vm.$http.get(vm.$store.state.apiUrl + "zichan/list",{params:{
 					zcID : vm.$route.query.zcID,
 					mingch : vm.$route.query.name,
-					lbie : vm.$route.query.type
+					lbie : vm.$route.query.type,
+					bgrId : vm.$store.state.loginInfo.userData.uuid
 				}}).then((response) => {
 					vm.zcList = response.data;
 					if(!vm.zcList.length) {
@@ -127,7 +127,7 @@ export default {
 					bgrId : vm.$store.state.loginInfo.userData.uuid
 				}}).then((response) => {
 					vm.zcList = response.data.filter((item) => {
-						//新入库的资产数据必须在进行入库拍照后才能执行盘点/处理
+						//新入库的资产数据必须在进行入库拍照后才能执行盘点/处理/维保
 						//这里只显示已盘点和未盘点的
 						return pdStatuses.indexOf(item.pdzt) >= 0;
 					});
@@ -155,7 +155,7 @@ export default {
 			this.showDialog = true;
 		},
 		/**
-		 * 上传盘点/处理照片
+		 * 上传盘点/处理/维保照片
 		 */
 		selectPic () {
 			NativePicHandle.selectPic({
@@ -179,7 +179,7 @@ export default {
 			});
 		},
 		/**
-		 * 盘点/处理 完成
+		 * 盘点/处理/维保 完成
 		 */
 		pdComplete () {
 			if(!this.status) {
@@ -191,13 +191,13 @@ export default {
 				return;
 			}
 			var _this = this;
-			//保存盘点/处理信息
+			//保存盘点/处理/维保信息
 			this.$http.post(this.$store.state.apiUrl + "pd/save", {
 				fkZichanUuid : this.zcList[this.selectIndex].uuid, //资产uuid
 				fkZichanZcid : this.zcList[this.selectIndex].zcid, //资产编码
-				status : this.status, //盘点/处理状态 : 正常 损坏 丢失 其他
+				status : this.status, //盘点/处理/维保状态 : 正常 损坏 丢失 其他
 				photoPath : this.imgPath, //照片路径
-				pdbz : this.remark, //盘点/处理备注
+				pdbz : this.remark, //盘点/处理/维保备注
 				pdzt : `已${this.type}` 
 			}).then((response) => {
 				_this.zcList[_this.selectIndex].pdzt = `已${_this.type}`;
@@ -205,7 +205,7 @@ export default {
 			});
 		},
 		/**
-		 * 清除dialog当中填写的盘点/处理信息
+		 * 清除dialog当中填写的盘点/处理/维保信息
 		 */
 		clearPd () {
 			this.selectIndex = null;

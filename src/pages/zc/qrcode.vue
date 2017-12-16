@@ -1,14 +1,26 @@
 <!-- 二维码展示 页面 -->
 <template>
 <div>
-	<divider>请展示给交接方进行扫码</divider>
-	<div class="qrcode-panel" >
-		<img id="qrcode_img" :src="imgSrc" title="资产流转二维码"/>
-	</div>
+	<flexbox orient="vertical" justify="space-around" style="height:100%;min-height:480px;">
+		<flexbox-item style="flex-grow:0;">
+		<divider>请展示给交接方进行扫码</divider>
+		</flexbox-item>
+		<flexbox-item style="flex-grow:0;">
+		<div class="qrcode-panel" >
+			<img id="qrcode_img" :src="imgSrc" title="资产流转二维码"/>
+		</div>
+		</flexbox-item>
+		<flexbox-item style="flex-grow:0;">
+		<div class="btn-container">
+			<x-button @click.native="backToIndex" type="default" :plain="true" >返回首页</x-button>
+		</div>
+		</flexbox-item>
+	</flexbox>
 </div>
 </template>
 <script>
-import { Divider } from 'vux'
+import { Divider,XButton,Flexbox,FlexboxItem } from 'vux'
+
 export default {
 	name : "qrcode",
 	data () {
@@ -23,27 +35,27 @@ export default {
 		this.imgSrc = this.$store.state.apiUrl+'lz/outputQrcode/'+localStorage.getItem('operateId');
 		this.checkFinished();
 	},
-	components : { Divider },
+	components : { Divider,XButton,Flexbox,FlexboxItem },
 	methods : {
 		/**
 		 * 验证对方是否确认完成
 		 */
 		checkFinished () {
+			// 创建websocket连接, 等待服务端返回对方确认完成的消息
 			var _this = this;
-			// 对后台执行轮询, 等待对方扫码之后确认完成, 显示出库清单
-			this.$http.get(this.$store.state.apiUrl+"lz/checkFinished",
-				{params:{
-					operateId: this.operateId, 
-					r: Math.random() //添加随机数防止缓存
-				}}).then(function(response){
-					if(response.data.msg !== "finished") {
-						setTimeout(() => {
-							_this.checkFinished();
-						}, 3000);
-					} else {
-						_this.openNextView(); //根据角色与操作类型进行页面跳转
-					}
-				});
+			const socket = new WebSocket(this.$store.state.wsUrl + "lz/waitingFinish");
+			socket.addEventListener("open", (event) => {
+				//当连接建立, 立即发送当前的operateId给服务端
+				socket.send(JSON.stringify({operateId : _this.operateId}));
+			});
+
+			socket.addEventListener("message", (event) => {
+				//event.data为从服务端接收到的消息内容
+				if(event.data.toString() === "finished") {
+					socket.close();
+					_this.openNextView();
+				}
+			});
 		},
 		/**
 		 * 自动触发的页面跳转
@@ -68,11 +80,13 @@ export default {
 			default : 
 				throw new Error("未知的操作类型 : " + operate);
 			}
+		},
+		backToIndex () {
+			this.$router.replace("/index/main");
 		}
 	}
 };
 </script>
-<style>
-.qrcode-panel {margin-top:10%; text-align:center; width:100%;}
-.qrcode-panel > img {width : 80%; margin : 10% auto;}
+<style scoped>
+.qrcode-panel {text-align:center;}
 </style>

@@ -26,7 +26,7 @@
 			<flexbox-item>
 			<flexbox>
 			<flexbox-item><x-button @click.native="toQrcode" type="primary">生成二维码</x-button></flexbox-item>
-			<flexbox-item><x-button @click.native="toReceive" type="default">对方无法扫码</x-button></flexbox-item>
+			<flexbox-item><x-button @click.native="toReceive" type="primary" :plain="true">对方无法扫码</x-button></flexbox-item>
 			</flexbox>
 			</flexbox-item>
 			<flexbox-item>

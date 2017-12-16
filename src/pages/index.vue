@@ -2,7 +2,7 @@
 <template>
 <div>
 	<transition :name="indexViewTransition">
-		<router-view class="index-view"/>
+		<keep-alive><router-view class="index-view"/></keep-alive>
 	</transition>
 	<tabbar>
 		<template v-for="(item,index) in tabs.items">

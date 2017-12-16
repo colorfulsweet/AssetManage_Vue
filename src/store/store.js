@@ -5,12 +5,15 @@ Vue.use(Vuex);
 
 const port = 9000;
 //阿里云主机
-const host = "47.96.30.143";
+// const host = "47.96.30.143";
 //局域网主机
-// const host = "192.168.1.102";
+const host = "192.168.1.102";
 //本地
 // const host = "127.0.0.1";
+
 const apiUrl = `http://${host}:${port}/`;
+const wsUrl = `ws://${host}:${port}/`
+
 const store = new Vuex.Store({
 	state: {
 	  	// 公共变量
@@ -19,9 +22,10 @@ const store = new Vuex.Store({
 			userData: null,
 			token: null
 		},
-		apiUrl: apiUrl,
+		apiUrl,
+		wsUrl, 
 		readPhotoUrl: apiUrl + "lz/readPhoto?photoPath=",
-		operateList : ["出库", "流转", "处理"],
+		operateList : ["出库", "流转", "处理", "维保"],
 		// 页头配置
 		headerConf : {
 			hasbackbtn : false,

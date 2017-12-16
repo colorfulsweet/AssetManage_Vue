@@ -4,10 +4,11 @@
 <x-table :cell-bordered="false" >
 	<thead>
 		<tr style="background-color: #F7F7F7">
-			<th style="width:28%">编码</th>
-			<th style="width:28%">名称</th>
-			<th style="width:28%">类别</th>
+			<th style="width:22%">编码</th>
+			<th style="width:22%">名称</th>
+			<th style="width:22%">类别</th>
 			<th style="width:16%">数量</th>
+			<th style="width:18%">保管人</th>
 		</tr>
 	</thead>
 </x-table>
@@ -17,10 +18,11 @@
 		<!-- TODO 使用 scroller InlineLoading 组件实现滚动加载 -->
 		<tr v-for="(item,index) in zcList" :key="item.uuid" v-on:click="trClick(index)"
 			v-bind:class="{selected : item.isSelected}">
-			<td style="width:28%">{{item.zcid}}</td>
-			<td style="width:28%">{{item.mingch}}</td>
-			<td style="width:28%">{{item.lbie}}</td>
+			<td style="width:22%">{{item.zcid}}</td>
+			<td style="width:22%">{{item.mingch}}</td>
+			<td style="width:22%">{{item.lbie}}</td>
 			<td style="width:16%">{{item.shul}}</td>
+			<td style="width:18%">{{item.bgr.realname}}</td>
 		</tr>
 	</tbody>
 </x-table>
@@ -104,13 +106,8 @@ export default {
 		};
 		switch(this.operate) {
 		case "1" : //出库
-			if(this.$store.state.loginInfo.userData.roles.indexOf("MK") !== -1) {
-				//如果当前用户角色是MK, 那么查询所有属于MA名下的数据(也就是未出库的)
-				params.role = "MA";
-			} else if (this.$store.state.loginInfo.userData.roles.indexOf("MA") !== -1){
-				//如果当前用户角色是MA, 那么只查询自己名下的资产数据
-				params.bgrId = this.$store.state.loginInfo.userData.uuid;
-			}
+			//查询所有属于MA名下的数据(也就是未出库的)
+			params.role = "MA";
 			break;
 		case "2" : //流转
 			//查询所有属于MK名下的数据
