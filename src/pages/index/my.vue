@@ -23,24 +23,19 @@ export default {
 	data () {
 		return {
 			menus :[{ //===我的===
-				id : "my_info",
 				name : "我的信息",
 				url : "/my/my_info",
 			},{
-				id : "my_record",
 				name : "我的记录",
 				url : "/my/my_record",
 			},{
-				id : "my_assets",
 				name : "当前资产",
 				url : "/my/my_asset",
 			},{
-				id : "my_messages",
 				name : "我的消息",
 				url : "/my/my_message",
 				badgeNum : 0
 			},{
-				id : "change_pwd",
 				name : "修改密码",
 				url : "/my/change_pwd",
 			}]

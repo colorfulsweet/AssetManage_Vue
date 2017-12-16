@@ -18,33 +18,26 @@ export default {
 	data () {
 		return {
 			menus : [{ //===首页===
-				id : "zcck",
 				name : "资产出库",
 				url : "/search?operate=1"
 			},{
-				id : "zclz",
 				name : "资产流转",
 				url : "/search?operate=2",
 				roles : ["MK","XM_MK","XMLS_MK","FB_MK"]
 			},{
-				id : "zcrk",
 				name : "资产入库",
 				url : "/zc/storage",
 				roles : ["MA","MK"]
 			},{
-				id : "zcpd",
 				name : "资产盘点",
 				url : "/zc/inventory"
 			},{
-				id : "zccl",
 				name : "资产处理",
 				url : "/search?operate=3&target=/zc/inventory"
 			},{
-				id : "zccl",
 				name : "资产维保",
 				url : "/search?operate=4&target=/zc/inventory"
 			},{
-				id : "qrcodeScan",
 				name : "二维码扫描",
 				url : "/native/qrcode_scan"
 			}]
